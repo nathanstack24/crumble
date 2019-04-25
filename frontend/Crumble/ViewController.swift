@@ -23,8 +23,8 @@ class ViewController: UIViewController {
     
     let reuseIdentifier = "recipeCellReuse"
     let filterReuseIdentifier = "filterReuseIdentifier"
-    let cellHeight: CGFloat = 100
-    let cellSpacingHeight: CGFloat = 8
+    let cellHeight: CGFloat = 250
+    let cellSpacingHeight: CGFloat = 20
     let filterHeight: CGFloat = 30
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
@@ -69,13 +69,10 @@ class ViewController: UIViewController {
         filterLabel.translatesAutoresizingMaskIntoConstraints = false
         filterLabel.text = "Filter"
         filterLabel.textColor = .white
-        filterLabel.font = UIFont(name: "Open Sans Bold", size: 50)
+        filterLabel.font = UIFont(name: "SFProText-Bold", size: 16)
         filterLabel.textAlignment = .center
-        filterLabel.backgroundColor = .blue
-        filterLabel.layer.borderWidth = 1
-        filterLabel.layer.borderColor = UIColor.white.cgColor
-        filterLabel.shadowColor = .gray
-        filterLabel.layer.cornerRadius = 10
+        filterLabel.backgroundColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1)
+        filterLabel.layer.cornerRadius = 20
         filterLabel.clipsToBounds = true
         view.addSubview(filterLabel)
         
@@ -111,9 +108,9 @@ class ViewController: UIViewController {
             ])
         NSLayoutConstraint.activate([
             filterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            filterLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
+            filterLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
             filterLabel.heightAnchor.constraint(equalToConstant: 40),
-            filterLabel.widthAnchor.constraint(equalToConstant: 100)
+            filterLabel.widthAnchor.constraint(equalToConstant: 110)
             ])
     }
     

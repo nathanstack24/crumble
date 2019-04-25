@@ -19,6 +19,10 @@
 		D3F9E0CA226D5FEC006B1242 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0C9226D5FEC006B1242 /* Filter.swift */; };
 		D3F9E0CC226F6F54006B1242 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */; };
 		D3F9E0CE226F6FCD006B1242 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0CD226F6FCD006B1242 /* SearchViewController.swift */; };
+		D8DA8E952271808800E6A671 /* PlayfairDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */; };
+		D8DA8E9F2271884700E6A671 /* SFProText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8DA8E9C2271884700E6A671 /* SFProText-Bold.otf */; };
+		D8DA8EA32271886600E6A671 /* SFProText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8DA8EA22271886600E6A671 /* SFProText-Light.otf */; };
+		D8DA8EA52271886C00E6A671 /* SFProText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8DA8EA42271886C00E6A671 /* SFProText-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		D3F9E0C9226D5FEC006B1242 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D3F9E0CD226F6FCD006B1242 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Bold.otf"; sourceTree = "<group>"; };
+		D8DA8E9C2271884700E6A671 /* SFProText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.otf"; sourceTree = "<group>"; };
+		D8DA8EA22271886600E6A671 /* SFProText-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Light.otf"; path = "../../../font/SFProText-Light.otf"; sourceTree = "<group>"; };
+		D8DA8EA42271886C00E6A671 /* SFProText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Regular.otf"; path = "../../../font/SFProText-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +89,20 @@
 				D3F9E0C9226D5FEC006B1242 /* Filter.swift */,
 				D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */,
 				D3F9E0CD226F6FCD006B1242 /* SearchViewController.swift */,
+				D8DA8E932271806700E6A671 /* Font */,
 			);
 			path = Crumble;
+			sourceTree = "<group>";
+		};
+		D8DA8E932271806700E6A671 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */,
+				D8DA8E9C2271884700E6A671 /* SFProText-Bold.otf */,
+				D8DA8EA22271886600E6A671 /* SFProText-Light.otf */,
+				D8DA8EA42271886C00E6A671 /* SFProText-Regular.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,9 +163,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8DA8EA32271886600E6A671 /* SFProText-Light.otf in Resources */,
 				D3F9E0B8226D4569006B1242 /* LaunchScreen.storyboard in Resources */,
 				D3F9E0B5226D4568006B1242 /* Assets.xcassets in Resources */,
+				D8DA8E9F2271884700E6A671 /* SFProText-Bold.otf in Resources */,
+				D8DA8EA52271886C00E6A671 /* SFProText-Regular.otf in Resources */,
 				D3F9E0B3226D4566006B1242 /* Main.storyboard in Resources */,
+				D8DA8E952271808800E6A671 /* PlayfairDisplay-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3FK25B4PAC;
 				INFOPLIST_FILE = Crumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -328,6 +353,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3FK25B4PAC;
 				INFOPLIST_FILE = Crumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
