@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     var filterButton: UIButton!
     var backgroundPic: UIImageView!
     var recipeOfTheDayLabel: UILabel!
+    var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +90,12 @@ class SearchViewController: UIViewController {
         filterButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
         view.addSubview(filterButton)
         
+        searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.isTranslucent = true
+        searchBar.placeholder = "Ingredient"
+        view.addSubview(searchBar)
+        
         setUpConstraints()
     }
     
@@ -106,20 +113,26 @@ class SearchViewController: UIViewController {
             recipeOfTheDayLabel.heightAnchor.constraint(equalToConstant: 50)
             ])
         NSLayoutConstraint.activate([
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            searchBar.centerYAnchor.constraint(equalTo: backgroundPic.bottomAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            searchBar.heightAnchor.constraint(equalToConstant: 50)
+            ])
+        NSLayoutConstraint.activate([
             searchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30),
+            searchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
             searchButton.heightAnchor.constraint(equalToConstant: 50),
             searchButton.widthAnchor.constraint(equalToConstant: 300)
             ])
         NSLayoutConstraint.activate([
             addButton.leadingAnchor.constraint(equalTo: searchButton.leadingAnchor),
-            addButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            addButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
             addButton.heightAnchor.constraint(equalToConstant: 50),
             addButton.widthAnchor.constraint(equalToConstant: 115)
             ])
         NSLayoutConstraint.activate([
             filterButton.trailingAnchor.constraint(equalTo: searchButton.trailingAnchor),
-            filterButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            filterButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
             filterButton.heightAnchor.constraint(equalToConstant: 50),
             filterButton.widthAnchor.constraint(equalToConstant: 115)
             ])
