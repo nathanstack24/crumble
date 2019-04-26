@@ -11,12 +11,10 @@ import UIKit
 class Filter {
     
     var name: String
-    var color: UIColor
     var isSelected: Bool
     
-    init(name: String, color: UIColor, isSelected: Bool) {
+    init(name: String, isSelected: Bool) {
         self.name = name
-        self.color = color
         self.isSelected = isSelected
     }
     

@@ -16,25 +16,37 @@ class SearchViewController: UIViewController {
     var backgroundPic: UIImageView!
     var recipeOfTheDayLabel: UILabel!
     var searchBar: UISearchBar!
+    var filterLayout: UICollectionView!
+    var refreshControl: UIRefreshControl!
+    var addedFilters: [Filter] = []
+    var possibleFilters: [Filter]! = []
+    
+    let filterReuseIdentifier = "filterReuseIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Crumble"
         view.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = .orange
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "ChalkboardSE-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
-        navigationController?.navigationBar.tintColor = .white
-        
-        let lightgray = UIColor.gray
+        navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
         
         let recipeOfTheDay = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true)
+        
+        
+        //possibleFilters needs to connect to backend to form array of all possible ingredients that can be inputted to show results
+        let filter1 = Filter(name: "Spinach", isSelected: false)
+        let filter2 = Filter(name: "Shrimp", isSelected: false)
+        let filter3 = Filter(name: "Gnocci", isSelected: false)
+        let filter4 = Filter(name: "Cream", isSelected: false)
+        possibleFilters = [filter1, filter2, filter3, filter4]
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
         
         backgroundPic = UIImageView(frame: .zero)
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
         backgroundPic.contentMode = .scaleAspectFill
         backgroundPic.clipsToBounds = true
-        backgroundPic.layer.borderWidth = 1
-        backgroundPic.layer.borderColor = lightgray.cgColor
         backgroundPic.image = UIImage(named: recipeOfTheDay.imageName)
         view.addSubview(backgroundPic)
         
@@ -42,49 +54,34 @@ class SearchViewController: UIViewController {
         recipeOfTheDayLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeOfTheDayLabel.text = "Recipe of the Day"
         recipeOfTheDayLabel.textColor = .black
-        recipeOfTheDayLabel.font = UIFont(name: "Verdana-Bold", size: 15)
+        recipeOfTheDayLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 18)
         recipeOfTheDayLabel.textAlignment = .center
-        recipeOfTheDayLabel.backgroundColor = .yellow
-        recipeOfTheDayLabel.layer.borderWidth = 1
-        recipeOfTheDayLabel.layer.borderColor = UIColor.white.cgColor
-        recipeOfTheDayLabel.shadowColor = .gray
+        recipeOfTheDayLabel.backgroundColor = UIColor(red: 251/255, green: 234/255, blue: 3/255, alpha: 1)
+        recipeOfTheDayLabel.layer.shadowColor = UIColor.lightGray.cgColor
+        recipeOfTheDayLabel.layer.shadowOffset = CGSize(width: 15, height: 15)
+        recipeOfTheDayLabel.layer.shadowRadius = 5.0
         recipeOfTheDayLabel.clipsToBounds = true
         view.addSubview(recipeOfTheDayLabel)
         
         searchButton = UIButton()
         searchButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.setTitle("Search Recipes", for: .normal)
-        searchButton.titleLabel!.font = UIFont(name: "Verdana-Bold", size: 20)
+        searchButton.titleLabel!.font = UIFont(name: "SFProText-Bold", size: 20)
         searchButton.setTitleColor(.white, for: .normal)
-        searchButton.backgroundColor = .orange
-        searchButton.layer.borderWidth = 1
-        searchButton.layer.borderColor = UIColor.white.cgColor
+        searchButton.backgroundColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         searchButton.layer.cornerRadius = 25
         searchButton.clipsToBounds = true
         searchButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
         view.addSubview(searchButton)
         
-        addButton = UIButton()
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.setTitle("+ Add", for: .normal)
-        addButton.titleLabel!.font = UIFont(name: "Verdana-Bold", size: 20)
-        addButton.setTitleColor(.black, for: .normal)
-        addButton.backgroundColor = .white
-        addButton.layer.borderWidth = 3
-        addButton.layer.borderColor = UIColor.blue.cgColor
-        addButton.layer.cornerRadius = 20
-        addButton.clipsToBounds = true
-        addButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
-        view.addSubview(addButton)
-        
         filterButton = UIButton()
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton.setTitle("- Filter", for: .normal)
-        filterButton.titleLabel!.font = UIFont(name: "Verdana-Bold", size: 20)
+        filterButton.titleLabel!.font = UIFont(name: "SFProText-Bold", size: 18)
         filterButton.setTitleColor(.black, for: .normal)
         filterButton.backgroundColor = .white
         filterButton.layer.borderWidth = 3
-        filterButton.layer.borderColor = UIColor.blue.cgColor
+        filterButton.layer.borderColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1).cgColor
         filterButton.layer.cornerRadius = 20
         filterButton.clipsToBounds = true
         filterButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
@@ -94,7 +91,37 @@ class SearchViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.isTranslucent = true
         searchBar.placeholder = "Ingredient"
+        searchBar.showsSearchResultsButton = true
+//        searchBar.delegate = self
         view.addSubview(searchBar)
+        
+        addButton = UIButton()
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.setTitle("+ Add", for: .normal)
+        addButton.titleLabel!.font = UIFont(name: "SFProText-Bold", size: 18)
+        addButton.setTitleColor(.black, for: .normal)
+        addButton.backgroundColor = .white
+        addButton.layer.borderWidth = 3
+        addButton.layer.borderColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1).cgColor
+        addButton.layer.cornerRadius = 20
+        addButton.clipsToBounds = true
+        addButton.addTarget(self, action: #selector(addFilter), for: .touchUpInside)
+        view.addSubview(addButton)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
+        filterLayout = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        filterLayout.translatesAutoresizingMaskIntoConstraints = false
+        filterLayout.backgroundColor = .white
+        filterLayout.layer.cornerRadius = 10
+        filterLayout.layer.borderColor = UIColor.gray.cgColor
+        filterLayout.dataSource = self
+        filterLayout.delegate = self
+        filterLayout.refreshControl = refreshControl
+        filterLayout.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: filterReuseIdentifier)
+        view.addSubview(filterLayout)
         
         setUpConstraints()
     }
@@ -104,7 +131,7 @@ class SearchViewController: UIViewController {
             backgroundPic.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundPic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundPic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundPic.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -100)
+            backgroundPic.heightAnchor.constraint(equalToConstant: 200)
             ])
         NSLayoutConstraint.activate([
             recipeOfTheDayLabel.leadingAnchor.constraint(equalTo: backgroundPic.leadingAnchor),
@@ -128,21 +155,93 @@ class SearchViewController: UIViewController {
             addButton.leadingAnchor.constraint(equalTo: searchButton.leadingAnchor),
             addButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
             addButton.heightAnchor.constraint(equalToConstant: 50),
-            addButton.widthAnchor.constraint(equalToConstant: 115)
+            addButton.widthAnchor.constraint(equalToConstant: 110)
             ])
         NSLayoutConstraint.activate([
             filterButton.trailingAnchor.constraint(equalTo: searchButton.trailingAnchor),
             filterButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
             filterButton.heightAnchor.constraint(equalToConstant: 50),
-            filterButton.widthAnchor.constraint(equalToConstant: 115)
+            filterButton.widthAnchor.constraint(equalToConstant: 110)
+            ])
+        NSLayoutConstraint.activate([
+            filterLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            filterLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            filterLayout.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 50)
             ])
     }
     
     @objc func pushViewController() {
         let searchViewController = ViewController()
-        //searchViewController.delegate = self
+//        searchViewController.delegate = self
         navigationController?.pushViewController(searchViewController, animated: true)
     }
     
     
+    @objc func pulledToRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.refreshControl.endRefreshing()
+        }
+    }
 }
+
+extension SearchViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = filterLayout.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath) as! FilterCollectionViewCell
+        let filter = addedFilters[indexPath.item]
+        cell.configure(for: filter)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return addedFilters.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let filterView = filterLayout.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath)
+        return filterView
+    }
+}
+
+
+extension SearchViewController: UICollectionViewDelegate {
+    
+    @objc func addFilter(_ collectionView: UICollectionView) {
+        if searchBar.text != "" {
+            let ingredient = searchBar.text!
+            let filter = possibleFilters.first(where: {$0.name == ingredient})
+            if let addFilter = filter {
+                print("here")
+                addedFilters.append(addFilter)
+                addFilter.isSelected = true
+            }
+        }
+        self.filterLayout.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let filter = possibleFilters[indexPath.item]
+        if filter.isSelected == false {
+            filter.isSelected = true
+            collectionView.reloadData()
+        }
+        else {
+            filter.isSelected = false
+        }
+        collectionView.reloadItems(at: [indexPath])
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: 150, height: 100)
+    }
+    
+}
+
+
