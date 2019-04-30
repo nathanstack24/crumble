@@ -40,7 +40,7 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
-        let recipeOfTheDay = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true)
+        let recipeOfTheDay = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
         
         
         //filterArray needs to connect to backend to form array of all possible ingredients that can be inputted to show results
@@ -231,8 +231,6 @@ extension SearchViewController: UICollectionViewDelegate {
                 }
             }
         }
-        var defaults = UserDefaults.standard
-        defaults.set(addedFilters, forKey: "Filter Array")
         self.filterLayout.reloadData()
     }
     

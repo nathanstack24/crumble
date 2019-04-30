@@ -86,7 +86,6 @@ class RecipeCell: UITableViewCell {
         NSLayoutConstraint.activate([
             recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             recipePhoto.heightAnchor.constraint(equalToConstant: 150),
-            //recipePhoto.widthAnchor.constraint(equalToConstant: recipeImageWidth)
             recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
             ])
         

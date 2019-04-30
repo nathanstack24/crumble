@@ -25,14 +25,16 @@ class Recipe {
     var imageName: String
     var ingredients: [String]
     var displayed: Bool
+    var favorited: Bool
         
-    init(rating: RecipeRating, recipeName: String, cookTime: String, imageName: String, ingredients: [String], displayed: Bool) {
+    init(rating: RecipeRating, recipeName: String, cookTime: String, imageName: String, ingredients: [String], displayed: Bool, favorited: Bool) {
         self.rating = rating
         self.recipeName = recipeName
         self.cookTime = cookTime
         self.imageName = imageName
         self.ingredients = ingredients
         self.displayed = displayed
+        self.favorited = favorited
         }
         
 }

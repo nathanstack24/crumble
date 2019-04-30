@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var filterArray: [Filter]!
     var refreshControl: UIRefreshControl!
     var filterLabel: UILabel!
-    var addedFilters: [Filter] = []
+    var addedFilters: [Filter]!
     var selectedRecipes: [Recipe]! = []
     
     let reuseIdentifier = "recipeCellReuse"
@@ -39,25 +39,32 @@ class ViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(pushProfileViewController))
         
-        let shrimpandgnocci = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true)
-        let tacos = Recipe(rating: .moderate, recipeName: "Texas Chile Short Rib Tacos", cookTime: "30 min", imageName: "tacos", ingredients: ["tortillas", "short rib", "lettuce", "red onion", "sour cream"], displayed: true)
-        let porkchops = Recipe(rating: .great, recipeName: "Pan Seared Pork Chops", cookTime: "1 hour", imageName: "porkchops", ingredients: ["pork chops", "bread crumbs"], displayed: true)
-        let lemonsoup = Recipe(rating: .good, recipeName: "Lemony Chicken Soup", cookTime: "45 min", imageName: "lemonsoup", ingredients: ["chicken", "heavy cream", "lemon", "chicken broth"], displayed: true)
-        let medpasta = Recipe(rating: .bad, recipeName: "Mediterranean Pasta", cookTime: "1 hour 15 min", imageName: "medpasta", ingredients: ["penne", "tomatoes", "spinach", "heavy cream"], displayed: true)
-        let salmon = Recipe(rating: .good, recipeName: "Dijon Baked Salmon", cookTime: "45 min", imageName: "salmon", ingredients: ["salmon", "Dijon mustard"], displayed: true)
-        let pretzels = Recipe(rating: .moderate, recipeName: "Stuffed Pretzels", cookTime: "20 min", imageName: "pretzels", ingredients: ["flour", "yeast", "cheese"], displayed: true)
-        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true)
+        let shrimpandgnocci = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
+        let tacos = Recipe(rating: .moderate, recipeName: "Texas Chile Short Rib Tacos", cookTime: "30 min", imageName: "tacos", ingredients: ["tortillas", "short rib", "lettuce", "red onion", "sour cream"], displayed: true, favorited: false)
+        let porkchops = Recipe(rating: .great, recipeName: "Pan Seared Pork Chops", cookTime: "1 hour", imageName: "porkchops", ingredients: ["pork chops", "bread crumbs"], displayed: true, favorited: false)
+        let lemonsoup = Recipe(rating: .good, recipeName: "Lemony Chicken Soup", cookTime: "45 min", imageName: "lemonsoup", ingredients: ["chicken", "heavy cream", "lemon", "chicken broth"], displayed: true, favorited: false)
+        let medpasta = Recipe(rating: .bad, recipeName: "Mediterranean Pasta", cookTime: "1 hour 15 min", imageName: "medpasta", ingredients: ["penne", "tomatoes", "spinach", "heavy cream"], displayed: true, favorited: false)
+        let salmon = Recipe(rating: .good, recipeName: "Dijon Baked Salmon", cookTime: "45 min", imageName: "salmon", ingredients: ["salmon", "Dijon mustard"], displayed: true, favorited: false)
+        let pretzels = Recipe(rating: .moderate, recipeName: "Stuffed Pretzels", cookTime: "20 min", imageName: "pretzels", ingredients: ["flour", "yeast", "cheese"], displayed: true, favorited: false)
+        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true, favorited: false)
         
-        let shrimp = Filter(name: "shrimp", isSelected: false)
-        let spinach = Filter(name: "Spinach", isSelected: false)
-        let penne = Filter(name: "penne", isSelected: false)
-        let gnocci = Filter(name: "gnocci", isSelected: false)
-        let shortrib = Filter(name: "short rib", isSelected: false)
-        let heavycream = Filter(name: "heavy cream", isSelected: false)
-        let tomatosauce = Filter(name: "tomato sauce", isSelected: false)
+        let shrimp = Filter(name: "Shrimp", isSelected: false)
+        let spinach = Filter(name: "Spinach", isSelected: true)
+        let penne = Filter(name: "Penne", isSelected: false)
+        let gnocci = Filter(name: "Gnocci", isSelected: false)
+        let shortrib = Filter(name: "Short rib", isSelected: false)
+        let heavycream = Filter(name: "Heavy cream", isSelected: false)
+        let tomatosauce = Filter(name: "Tomato sauce", isSelected: false)
         
         recipes = [shrimpandgnocci, tacos, porkchops, lemonsoup, medpasta, salmon, pretzels, tuscanpasta]
         filterArray = [shrimp, spinach, penne, gnocci, shortrib, heavycream, tomatosauce]
+        
+        addedFilters = []
+        for filter in filterArray {
+            if filter.isSelected == true {
+                addedFilters.append(filter)
+            }
+        }
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
