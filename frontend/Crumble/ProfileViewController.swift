@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         let medpasta = Recipe(rating: .bad, recipeName: "Mediterranean Pasta", cookTime: "1 hour 15 min", imageName: "medpasta", ingredients: ["penne", "tomatoes", "spinach", "heavy cream"], displayed: true, favorited: false)
         let salmon = Recipe(rating: .good, recipeName: "Dijon Baked Salmon", cookTime: "45 min", imageName: "salmon", ingredients: ["salmon", "Dijon mustard"], displayed: true, favorited: true)
         let pretzels = Recipe(rating: .moderate, recipeName: "Stuffed Pretzels", cookTime: "20 min", imageName: "pretzels", ingredients: ["flour", "yeast", "cheese"], displayed: true, favorited: false)
-        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true, favorited: false)
+        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true, favorited: true)
         
         recipes = [shrimpandgnocci, tacos, porkchops, lemonsoup, medpasta, salmon, pretzels, tuscanpasta]
         

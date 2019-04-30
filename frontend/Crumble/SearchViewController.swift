@@ -122,7 +122,7 @@ class SearchViewController: UIViewController {
         view.addSubview(addButton)
         
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         filterLayout = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -160,7 +160,7 @@ class SearchViewController: UIViewController {
             ])
         NSLayoutConstraint.activate([
             searchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            searchButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
             searchButton.heightAnchor.constraint(equalToConstant: 50),
             searchButton.widthAnchor.constraint(equalToConstant: 300)
             ])
@@ -177,8 +177,8 @@ class SearchViewController: UIViewController {
             filterButton.widthAnchor.constraint(equalToConstant: 110)
             ])
         NSLayoutConstraint.activate([
-            filterLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            filterLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            filterLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             filterLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             filterLayout.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 50)
             ])

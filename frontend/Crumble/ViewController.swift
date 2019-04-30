@@ -142,6 +142,11 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    @objc func pushRecipeModalViewController() {
+        let viewController = RecipeModalViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource {
@@ -181,7 +186,7 @@ extension ViewController: UITableViewDelegate {
     
     /// Tell the table view what should happen if we select a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        pushRecipeModalViewController()
     }
     
     /// Tell the table view what should happen if we deselect a row
