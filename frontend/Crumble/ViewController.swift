@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol ChangeViewControllerButtonTextDelegate: class {
-    func textFieldTextChanged(to newString1: String, newString2: String, newString3: String, row: Int)
+protocol ChangeSearchViewControllerFilterDelegate: class {
+    func pushSearchViewController(to newFilters: [Filter])
 }
 
 class ViewController: UIViewController {
@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     var filterArray: [Filter]!
     var refreshControl: UIRefreshControl!
     var filterLabel: UILabel!
+    var addedFilters: [Filter] = []
+    var selectedRecipes: [Recipe]! = []
     
     let reuseIdentifier = "recipeCellReuse"
     let filterReuseIdentifier = "filterReuseIdentifier"
@@ -34,6 +36,9 @@ class ViewController: UIViewController {
         
         title = "Search Results"
         view.backgroundColor = .black
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(pushProfileViewController))
+        
         let shrimpandgnocci = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true)
         let tacos = Recipe(rating: .moderate, recipeName: "Texas Chile Short Rib Tacos", cookTime: "30 min", imageName: "tacos", ingredients: ["tortillas", "short rib", "lettuce", "red onion", "sour cream"], displayed: true)
         let porkchops = Recipe(rating: .great, recipeName: "Pan Seared Pork Chops", cookTime: "1 hour", imageName: "porkchops", ingredients: ["pork chops", "bread crumbs"], displayed: true)
@@ -44,7 +49,7 @@ class ViewController: UIViewController {
         let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true)
         
         let shrimp = Filter(name: "shrimp", isSelected: false)
-        let spinach = Filter(name: "spinach", isSelected: false)
+        let spinach = Filter(name: "Spinach", isSelected: false)
         let penne = Filter(name: "penne", isSelected: false)
         let gnocci = Filter(name: "gnocci", isSelected: false)
         let shortrib = Filter(name: "short rib", isSelected: false)
@@ -83,8 +88,8 @@ class ViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout2)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
         collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: filterReuseIdentifier)
         view.addSubview(collectionView)
@@ -125,8 +130,9 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func openFilter() {
-        
+    @objc func pushProfileViewController() {
+        let viewController = ProfileViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
 }
@@ -176,4 +182,89 @@ extension ViewController: UITableViewDelegate {
         
     }
     
+}
+
+extension ViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath) as! FilterCollectionViewCell
+        let filter = addedFilters[indexPath.item]
+        cell.configure(for: filter)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return addedFilters.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let filterView = collectionView.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath)
+        return filterView
+    }
+}
+
+
+extension ViewController: UICollectionViewDelegate {
+    
+    func beginFilter(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedRecipes = []
+        let filter = filterArray[indexPath.item]
+        addedFilters.append(filter)
+        for rec in recipes {
+            for fil in addedFilters {
+                if rec.ingredients.contains(fil.name) {
+                    selectedRecipes.append(rec)
+                    }
+                }
+            }
+            self.collectionView.reloadData()
+        }
+    
+    
+//    func endFilter(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let filter = filterArray[indexPath.item]
+//        selectedFilters.remove(at: selectedFilters.count-1)
+//        for rest in restaurantsArray {
+//            if selectedFilters.count == 0 {
+//                selectedRestaurants = restaurantsArray
+//            }
+//            else {
+//                if rest.categories.contains(filter.name) && rest.displayed == true {
+//                    rest.displayed = false
+//                    selectedRestaurants = selectedRestaurants.filter( {$0.restaurantName != rest.restaurantName})
+//                }
+//            }
+//            self.collectionView1.reloadData()
+//        }
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let filter = filterArray[indexPath.item]
+        if filter.isSelected == false {
+            filter.isSelected = true
+            beginFilter(collectionView, didSelectItemAt: indexPath)
+            collectionView.reloadData()
+        }
+        collectionView.reloadItems(at: [indexPath])
+        collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 75.0, height: 50.0)
+    }
+    
+}
+
+extension ViewController: ChangeSearchViewControllerFilterDelegate {
+    func pushSearchViewController(to newFilters: [Filter]) {
+        self.addedFilters = newFilters
+        print("here")
+        collectionView.reloadData()
+    }
 }

@@ -18,10 +18,21 @@ class SearchViewController: UIViewController {
     var searchBar: UISearchBar!
     var filterLayout: UICollectionView!
     var refreshControl: UIRefreshControl!
-    var addedFilters: [Filter] = []
-    var possibleFilters: [Filter]! = []
+    var addedFilters: [Filter] 
+    var filterArray: [Filter]! = []
     
     let filterReuseIdentifier = "filterReuseIdentifier"
+    
+    weak var delegate: ChangeSearchViewControllerFilterDelegate?
+    
+    init(addedFilters: [Filter]) {
+        self.addedFilters = addedFilters
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +40,18 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
-        
         let recipeOfTheDay = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true)
         
         
-        //possibleFilters needs to connect to backend to form array of all possible ingredients that can be inputted to show results
-        let filter1 = Filter(name: "Spinach", isSelected: false)
-        let filter2 = Filter(name: "Shrimp", isSelected: false)
-        let filter3 = Filter(name: "Gnocci", isSelected: false)
-        let filter4 = Filter(name: "Cream", isSelected: false)
-        possibleFilters = [filter1, filter2, filter3, filter4]
+        //filterArray needs to connect to backend to form array of all possible ingredients that can be inputted to show results
+        let shrimp = Filter(name: "Shrimp", isSelected: false)
+        let spinach = Filter(name: "Spinach", isSelected: false)
+        let penne = Filter(name: "Penne", isSelected: false)
+        let gnocci = Filter(name: "Gnocci", isSelected: false)
+        let shortrib = Filter(name: "Short rib", isSelected: false)
+        let heavycream = Filter(name: "Heavy cream", isSelected: false)
+        let tomatosauce = Filter(name: "Tomato sauce", isSelected: false)
+        filterArray = [shrimp, spinach, penne, gnocci, shortrib, heavycream, tomatosauce]
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -171,17 +184,17 @@ class SearchViewController: UIViewController {
             ])
     }
     
-    @objc func pushViewController() {
-        let searchViewController = ViewController()
-//        searchViewController.delegate = self
-        navigationController?.pushViewController(searchViewController, animated: true)
-    }
-    
     
     @objc func pulledToRefresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.refreshControl.endRefreshing()
         }
+    }
+    
+    @objc func pushViewController() {
+        let viewController = ViewController()
+        delegate?.pushSearchViewController(to: addedFilters)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -210,18 +223,21 @@ extension SearchViewController: UICollectionViewDelegate {
     @objc func addFilter(_ collectionView: UICollectionView) {
         if searchBar.text != "" {
             let ingredient = searchBar.text!
-            let filter = possibleFilters.first(where: {$0.name == ingredient})
+            let filter = filterArray.first(where: {$0.name == ingredient})
             if let addFilter = filter {
-                print("here")
-                addedFilters.append(addFilter)
-                addFilter.isSelected = true
+                if !addedFilters.contains(where: {$0.name == addFilter.name}) {
+                    addedFilters.append(addFilter)
+                    addFilter.isSelected = true
+                }
             }
         }
+        var defaults = UserDefaults.standard
+        defaults.set(addedFilters, forKey: "Filter Array")
         self.filterLayout.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let filter = possibleFilters[indexPath.item]
+        let filter = filterArray[indexPath.item]
         if filter.isSelected == false {
             filter.isSelected = true
             collectionView.reloadData()
@@ -243,5 +259,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
 
 
