@@ -18,6 +18,13 @@ def scrape_recipe(br, idnumber):
 		print(e)
 		rtitle = 'NA'
 
+	#author
+	try:
+		author = br.find_element_by_class_name('submitter__name').text
+	except Exception as e:
+		print(e)
+		author = 'NA'
+
 	#description
 	try:
 		description = br.find_element_by_class_name('submitter__description').text
@@ -27,7 +34,7 @@ def scrape_recipe(br, idnumber):
 
 	#Star rating
 	try:
-		starrating = br.find_element_by_class_name('rating-stars').get_attribute('data-ratingstars')
+		starrating = float(br.find_element_by_class_name('rating-stars').get_attribute('data-ratingstars'))
 	except Exception as e:
 		print(e)
 		starrating = 'NA'
@@ -55,7 +62,17 @@ def scrape_recipe(br, idnumber):
 		imageURL = br.find_element_by_id('BI_openPhotoModal1').get_attribute('src')
 	except Exception as e:
 		print(e)
-		servings = 'NA'
+		imageURL = 'NA'
+	
+	#tags
+	try:
+		tags = []
+		elements = br.find_elements_by_xpath('//meta[@itemprop = "recipeCategory"]')
+		for t in elements:
+			tags.append(t.get_attribute('content'))
+	except Exception as e:
+		print(e)
+		tags = 'NA'
 		
 	#calories per serving
 	try:
@@ -165,17 +182,11 @@ def scrape_recipe(br, idnumber):
 		ingredients.append(str(ingred[x].text))
 
 	#make dictionary of all scraped data and add to list of recipes
-	recipe_list.append(
-		{
+	new_recipe = {
 			"title": rtitle,
-			"Author" '',
-			"Source": 'allrecipes',
+			"author": author,
+			"source": 'allrecipes',
 			"description": description,
-			"fat": fat,
-			"carbs": carbs,
-			"protein": protein,
-			"cholesterol": chol,
-			"sodium": sodium,
 			"rating": starrating,
 			"number of reviews": numReviews,
 			"prep time": prepTime,
@@ -184,17 +195,25 @@ def scrape_recipe(br, idnumber):
 			"servings": servings,
 			"calories": calcount,
 			"fat": fat,
+			"carbs": carbs,
+			"protein": protein,
+			"cholesterol": chol,
+			"sodium": sodium,
 			"ingredients": ingredients,
 			"instructions": instructions,
-			"image URL": imageURL
-		}
-	)
+			"image URL": imageURL,
+			"tags": tags
+	}
+
+	recipe_list.append(new_recipe)
 
 	print("done - " + rtitle)
+	#print(new_recipe)
 
 
 
 br = webdriver.Firefox() #open firefox
+
 br.get('https://www.allrecipes.com/recipes/'+ '14486/everyday-cooking/special-collections/hall-of-fame/1997/?internalSource=hub%20nav&referringId=14452&referringContentType=Recipe%20Hub&linkName=hub%20nav%20daughter&clickId=hub%20nav%202')
 
 
@@ -213,12 +232,11 @@ id = np.unique(id)
 
 #go to each individual recipe to scrape 
 for i, url in enumerate(urls):
-	if i < 1:
-		br.get(url)
-		time.sleep(3)
-		scrape_recipe(br, ids[i])
+	br.get(url)
+	time.sleep(3)
+	scrape_recipe(br, ids[i])
 
-print(recipe_list)
-print()
+for recipe in recipe_list:
+	print(recipe)
 with open('recipes.json', 'w') as outfile:
 	json.dump(recipe_list, outfile)
