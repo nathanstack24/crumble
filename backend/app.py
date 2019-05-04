@@ -22,39 +22,48 @@ def get_recipes():
     recipes = Recipe.query.all()
     res = {
         'success': True,
+        'num_results': len(recipes),
         'data': [r.serialize() for r in recipes]
     }
     return json.dumps(res), 200
 
 @app.route('/api/recipes/all/', methods = ['POST'])
 def create_all_recipes():
-    post_body_dict = json.loads(request.data) # dictionary with all of the recipes
-    all_keys = post_body_dict.keys()
+    post_body_list = json.loads(request.data) # dictionary with all of the recipes
     recipe_list = []
-    for k in all_keys:
-        post_body = post_body_dict[k]
-        recipe = Recipe(
-            name = post_body.get('name'),
-            source = post_body.get('source'),
-            time = post_body.get('preptime') + post_body.get('waittime') + post_body.get('cooktime'),
-            servings = post_body.get('servings'),
-            comments = post_body.get('comments'),
-            calories = post_body.get('calories'),
-            instructions = post_body.get('instructions')
-        )
-        if (recipe.time == 0):
-            recipe.time = -1
-        if (post_body.get("calories") == 0 and post_body.get("fat") == 0 and post_body.get("satfat") == 0 and post_body.get("carbs") == 0 and post_body.get("fiber") == 0 and post_body.get("sugar") == 0 and post_body.get("protein") == 0):
-            recipe.calories = -1
-        ingredients_list = post_body.get('ingredients')
-        for i in ingredients_list:
-            ingr = Ingredient.query.filter_by(name=i).first()
-            if ingr is None:
-                ingr = Ingredient(name = i)
-                db.session.add(ingr)
-            recipe.ingredients.append(ingr)
-        db.session.add(recipe)
-        recipe_list.append(recipe)
+    for post_body in post_body_list:
+        recip = Recipe.query.filter_by(title=post_body.get('title')).first()
+        if recip is None:
+            recipe = Recipe(
+                title = post_body.get('title'),
+                author = post_body.get('author'),
+                source = post_body.get('source'),
+                description = post_body.get('description'),
+                rating = post_body.get('rating') if post_body.get('rating') != 'NA' else -1,
+                num_reviews = post_body.get('number of reviews'),
+                prep_time = post_body.get('prep time') if post_body.get('prep time') != 'NA' else -1,
+                cook_time = post_body.get('cook time') if post_body.get('cook time') != 'NA' else -1,
+                total_time = post_body.get('total time') if post_body.get('total time') != 'NA' else -1,
+                servings = post_body.get('servings') if post_body.get('servings') != 'NA' else -1,
+                calories = post_body.get('calories') if post_body.get('calories') != 'NA' else -1,
+                fat = post_body.get('fat') if post_body.get('fat') != 'NA' else -1,
+                carbs = post_body.get('carbs') if post_body.get('carbs') != 'NA' else -1,
+                protein = post_body.get('protein') if post_body.get('protein') != 'NA' else -1,
+                cholesterol = post_body.get('cholesterol') if post_body.get('cholesterol') != 'NA' else -1,
+                sodium = post_body.get('sodium') if post_body.get('sodium') != 'NA' else -1,
+                instructions = post_body.get('instructions'),
+                image_url = post_body.get('image URL')
+            )
+
+            ingredients_list = post_body.get('ingredients')
+            for i in ingredients_list:
+                ingr = Ingredient.query.filter_by(name=i).first()
+                if ingr is None:
+                    ingr = Ingredient(name = i)
+                    db.session.add(ingr)
+                recipe.ingredients.append(ingr)
+            db.session.add(recipe)
+            recipe_list.append(recipe)
     
     db.session.commit()
 
@@ -63,30 +72,38 @@ def create_all_recipes():
 @app.route('/api/recipes/', methods = ['POST'])
 def create_recipe():
     post_body = json.loads(request.data)
-    recipe = Recipe(
-        name = post_body.get('name'),
-        source = post_body.get('source'),
-        time = post_body.get('preptime') + post_body.get('waittime') + post_body.get('cooktime'),
-        servings = post_body.get('servings'),
-        comments = post_body.get('comments'),
-        calories = post_body.get('calories'),
-        instructions = post_body.get('instructions')
-    )
-    if (recipe.time == 0):
-        recipe.time = -1
-    if (post_body.get("calories") == 0 and post_body.get("fat") == 0 and post_body.get("satfat") == 0 and post_body.get("carbs") == 0 and post_body.get("fiber") == 0 and post_body.get("sugar") == 0 and post_body.get("protein") == 0):
-        recipe.calories = -1
+    recip = Recipe.query.filter_by(title=post_body.get('title')).first()
+    if recip is None:
+        recipe = Recipe(
+            title = post_body.get('title'),
+            author = post_body.get('author'),
+            source = post_body.get('source'),
+            description = post_body.get('description'),
+            rating = post_body.get('rating') if post_body.get('rating') != 'NA' else -1,
+            num_reviews = post_body.get('number of reviews'),
+            prep_time = post_body.get('prep time') if post_body.get('prep time') != 'NA' else -1,
+            cook_time = post_body.get('cook time') if post_body.get('cook time') != 'NA' else -1,
+            total_time = post_body.get('total time') if post_body.get('total time') != 'NA' else -1,
+            servings = post_body.get('servings') if post_body.get('servings') != 'NA' else -1,
+            calories = post_body.get('calories') if post_body.get('calories') != 'NA' else -1,
+            fat = post_body.get('fat') if post_body.get('fat') != 'NA' else -1,
+            carbs = post_body.get('carbs') if post_body.get('carbs') != 'NA' else -1,
+            protein = post_body.get('protein') if post_body.get('protein') != 'NA' else -1,
+            cholesterol = post_body.get('cholesterol') if post_body.get('cholesterol') != 'NA' else -1,
+            sodium = post_body.get('sodium') if post_body.get('sodium') != 'NA' else -1,
+            instructions = post_body.get('instructions'),
+            image_url = post_body.get('image URL')
+        )
 
-    ingredients_list = post_body.get('ingredients')
-    for i in ingredients_list:
-        ingr = Ingredient.query.filter_by(name=i).first()
-        if ingr is None:
-            ingr = Ingredient(name = i)
-            db.session.add(ingr)
-        recipe.ingredients.append(ingr)
-
-    db.session.add(recipe)
-    db.session.commit()
+        ingredients_list = post_body.get('ingredients')
+        for i in ingredients_list:
+            ingr = Ingredient.query.filter_by(name=i).first()
+            if ingr is None:
+                ingr = Ingredient(name = i)
+                db.session.add(ingr)
+            recipe.ingredients.append(ingr)
+        db.session.add(recipe)
+        db.session.commit()
     return json.dumps({'success': True, 'data': recipe.serialize()}), 201
 
 @app.route('/api/recipe/<int:recipe_id>/')

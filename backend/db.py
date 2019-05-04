@@ -11,43 +11,73 @@ association_table = db.Table(
 class Recipe(db.Model):
     __tablename__ = 'recipe'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    author = db.Column(db.String, nullable=False)
     source = db.Column(db.String, nullable=False)
-    time = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String, nullable=False)
+    rating = db.Column(db.Float, nullable=False)
+    num_reviews = db.Column(db.String, nullable=False)
+    prep_time = db.Column(db.Integer, nullable=False)
+    cook_time = db.Column(db.Integer, nullable=False)
+    total_time = db.Column(db.Integer, nullable=False)
     servings = db.Column(db.Integer, nullable=False)
-    comments = db.Column(db.String, nullable=False)
     calories = db.Column(db.Integer, nullable=False)    # if -1 then not filled out
-    #fat = db.Column(db.Integer, nullable=False)
-    #satfat = db.Column(db.Integer, nullable=False)
-    #carbs = db.Column(db.Integer, nullable=False)
-    #fiber = db.Column(db.Integer, nullable=False)
-    #sugar = db.Column(db.Integer, nullable=False)
-    #protein = db.Column(db.Integer, nullable=False)
+    fat = db.Column(db.Float, nullable=False)
+    carbs = db.Column(db.Float, nullable=False)
+    protein = db.Column(db.Float, nullable=False)
+    cholesterol = db.Column(db.Float, nullable=False)
+    sodium = db.Column(db.Float, nullable=False)
     instructions = db.Column(db.String, nullable=False)
+    image_url = db.Column(db.String, nullable=False)
+    #tags
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     ingredients = db.relationship("Ingredient", secondary = association_table, back_populates = "recipes")
 
     def  __init__(self, **kwargs):
-        self.name = kwargs.get('name', '')
+        self.title = kwargs.get('title', '')
+        self.author = kwargs.get('author', '')
         self.source = kwargs.get('source', '')
-        self.time = kwargs.get('time', -1)
+        self.description = kwargs.get('description', '')
+        self.rating = kwargs.get('rating', '')
+        self.num_reviews = kwargs.get('num_reviews', -1)
+        self.prep_time = kwargs.get('prep_time', '')
+        self.cook_time = kwargs.get('cook_time', '')
+        self.total_time = kwargs.get('total_time', '')
         self.servings = kwargs.get('servings', -1)
-        self.comments = kwargs.get('comments', '')
         self.calories = kwargs.get('calories', -1)
+        self.fat = kwargs.get('fat', '')
+        self.carbs = kwargs.get('carbs', '')
+        self.protein = kwargs.get('protein', '')
+        self.cholesterol = kwargs.get('cholesterol', '')
+        self.sodium = kwargs.get('sodium', '')
         self.instructions = kwargs.get('instructions', '')
+        self.image_url = kwargs.get('image_url', '')
 
 
     def serialize(self):
 
         return {
             'id': self.id,
-            'name': self.name,
+            'title': self.title,
+            'author': self.author,
             'source': self.source,
-            'time': self.time,
-            'comments': self.comments,
+            'description': self.description,
+            'rating': self.rating,
+            'num_reviews': self.num_reviews,
+            'prep_time': self.prep_time,
+            'cook_time': self.cook_time,
+            'total_time': self.total_time,
+            'servings': self.servings,
             'calories': self.calories,
+            'fat': self.fat,
+            'carbs': self.carbs,
+            'protein': self.protein,
+            'cholesterol': self.cholesterol,
+            'sodium': self.sodium,
             'instructions': self.instructions,
+            'image_url': self.image_url,
             'ingredients': [i.serialize() for i in self.ingredients]
+            #tags
         }
 
 class Ingredient(db.Model):
