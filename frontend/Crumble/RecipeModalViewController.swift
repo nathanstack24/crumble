@@ -23,6 +23,7 @@ class RecipeModalViewController: UIViewController {
     var ingredientsHeader: UILabel!
     var ingredientsList: UILabel!
     var refreshControl: UIRefreshControl!
+    var scrollView: UIScrollView!
     var recipe: Recipe
     
     init(recipe: Recipe) {
@@ -42,12 +43,20 @@ class RecipeModalViewController: UIViewController {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
         
+        scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = UIColor(white: 0.95, alpha:1)
+        scrollView.isScrollEnabled = true
+        scrollView.alwaysBounceVertical = true
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 2000)
+        view.addSubview(scrollView)
+        
         backgroundPic = UIImageView(frame: .zero)
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
         backgroundPic.contentMode = .scaleAspectFill
         backgroundPic.clipsToBounds = true
         backgroundPic.image = UIImage(data: try! Data(contentsOf: URL(string: recipe.image_url)!))
-        view.addSubview(backgroundPic)
+        scrollView.addSubview(backgroundPic)
         
         recipeLabel = UILabel()
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +64,7 @@ class RecipeModalViewController: UIViewController {
         recipeLabel.textColor = .black
         recipeLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 25)
         recipeLabel.textAlignment = .center
-        view.addSubview(recipeLabel)
+        scrollView.addSubview(recipeLabel)
         
         recipeByLabel = UILabel()
         recipeByLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +72,7 @@ class RecipeModalViewController: UIViewController {
         recipeByLabel.textColor = .black
         recipeByLabel.font = UIFont(name: "SFProText-Bold", size: 18)
         recipeByLabel.textAlignment = .left
-        view.addSubview(recipeByLabel)
+        scrollView.addSubview(recipeByLabel)
         
         prepTime = UILabel()
         prepTime.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +80,7 @@ class RecipeModalViewController: UIViewController {
         prepTime.textColor = .black
         prepTime.font = UIFont(name: "SFProText-Bold", size: 18)
         prepTime.textAlignment = .left
-        view.addSubview(prepTime)
+        scrollView.addSubview(prepTime)
         
         cookTime = UILabel()
         cookTime.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +88,7 @@ class RecipeModalViewController: UIViewController {
         cookTime.textColor = .black
         cookTime.font = UIFont(name: "SFProText-Bold", size: 18)
         cookTime.textAlignment = .left
-        view.addSubview(cookTime)
+        scrollView.addSubview(cookTime)
         
         perServing = UILabel()
         perServing.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +96,7 @@ class RecipeModalViewController: UIViewController {
         perServing.textColor = .black
         perServing.font = UIFont(name: "SFProText-Bold", size: 18)
         perServing.textAlignment = .left
-        view.addSubview(perServing)
+        scrollView.addSubview(perServing)
         
         recipeDescription = UILabel()
         recipeDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +105,7 @@ class RecipeModalViewController: UIViewController {
         recipeDescription.numberOfLines = 0
         recipeDescription.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         recipeDescription.textAlignment = .center
-        view.addSubview(recipeDescription)
+        scrollView.addSubview(recipeDescription)
         
         ingredientsHeader = UILabel()
         ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +114,7 @@ class RecipeModalViewController: UIViewController {
         ingredientsHeader.numberOfLines = 0
         ingredientsHeader.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
         ingredientsHeader.textAlignment = .left
-        view.addSubview(ingredientsHeader)
+        scrollView.addSubview(ingredientsHeader)
         
         ingredientsList = UILabel()
         ingredientsList.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +127,7 @@ class RecipeModalViewController: UIViewController {
         ingredientsList.numberOfLines = 0
         ingredientsList.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         ingredientsList.textAlignment = .left
-        view.addSubview(ingredientsList)
+        scrollView.addSubview(ingredientsList)
         
         recipeInstructionsHeader = UILabel()
         recipeInstructionsHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +136,7 @@ class RecipeModalViewController: UIViewController {
         recipeInstructionsHeader.numberOfLines = 0
         recipeInstructionsHeader.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
         recipeInstructionsHeader.textAlignment = .left
-        view.addSubview(recipeInstructionsHeader)
+        scrollView.addSubview(recipeInstructionsHeader)
         
         recipeInstructions = UILabel()
         recipeInstructions.translatesAutoresizingMaskIntoConstraints = false
@@ -136,14 +145,21 @@ class RecipeModalViewController: UIViewController {
         recipeInstructions.numberOfLines = 0
         recipeInstructions.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         recipeInstructions.textAlignment = .left
-        view.addSubview(recipeInstructions)
+        scrollView.addSubview(recipeInstructions)
         
          setUpConstraints()
     }
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            backgroundPic.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo:view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo:view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+
+        NSLayoutConstraint.activate([
+            backgroundPic.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor),
             backgroundPic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundPic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundPic.heightAnchor.constraint(equalToConstant: pictureHeight)
@@ -188,7 +204,7 @@ class RecipeModalViewController: UIViewController {
             ingredientsHeader.topAnchor.constraint(equalTo: recipeDescription.bottomAnchor, constant: 20),
             ingredientsHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             ingredientsHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            ingredientsHeader.heightAnchor.constraint(equalToConstant: 20)
+            ingredientsHeader.heightAnchor.constraint(equalToConstant: 25)
             ])
         NSLayoutConstraint.activate([
             ingredientsList.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 20),
@@ -206,7 +222,7 @@ class RecipeModalViewController: UIViewController {
             recipeInstructions.topAnchor.constraint(equalTo: recipeInstructionsHeader.bottomAnchor, constant: 20),
             recipeInstructions.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             recipeInstructions.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            recipeInstructions.heightAnchor.constraint(equalToConstant: 300)
+            recipeInstructions.bottomAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
             ])
     }
     
