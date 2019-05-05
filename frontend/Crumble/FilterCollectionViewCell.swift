@@ -29,15 +29,20 @@ class FilterCollectionViewCell: UICollectionViewCell {
         filterLabel.clipsToBounds = true
         contentView.addSubview(filterLabel)
         
-//        xOut = UIButton()
-//        xOut.translatesAutoresizingMaskIntoConstraints = false
-//        xOut.setTitle("x", for: .normal)
-//        xOut.setTitleColor(.black, for: .normal)
-//        xOut.addTarget(self, action: #selector(endFilter), for: .touchUpInside)
-//        contentView.addSubview(xOut)
+        xOut = UIButton()
+        xOut.translatesAutoresizingMaskIntoConstraints = false
+        xOut.setTitle("x", for: .normal)
+        xOut.setTitleColor(.black, for: .normal)
+        xOut.addTarget(self, action: #selector(clearFilter), for: .touchUpInside)
+        contentView.addSubview(xOut)
         
         setupConstraints()
     }
+    
+    @objc func clearFilter() {
+        self.removeFromSuperview()
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -18,8 +18,10 @@ class SearchViewController: UIViewController {
     var searchBar: UISearchBar!
     var filterLayout: UICollectionView!
     var refreshControl: UIRefreshControl!
-    var addedFilters: [Filter] 
-    var filterArray: [Filter]! = []
+    var addedFilters: [Filter]!
+    var filterArray: [Filter]!
+    var allIngredients: [Ingredient]! = []
+    var allRecipes: [Recipe]! = []
     
     let filterReuseIdentifier = "filterReuseIdentifier"
     
@@ -40,18 +42,8 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
-        let recipeOfTheDay = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
         
-        
-        //filterArray needs to connect to backend to form array of all possible ingredients that can be inputted to show results
-        let shrimp = Filter(name: "Shrimp", isSelected: false)
-        let spinach = Filter(name: "Spinach", isSelected: false)
-        let penne = Filter(name: "Penne", isSelected: false)
-        let gnocci = Filter(name: "Gnocci", isSelected: false)
-        let shortrib = Filter(name: "Short rib", isSelected: false)
-        let heavycream = Filter(name: "Heavy cream", isSelected: false)
-        let tomatosauce = Filter(name: "Tomato sauce", isSelected: false)
-        filterArray = [shrimp, spinach, penne, gnocci, shortrib, heavycream, tomatosauce]
+        let recipeOfTheDay =  RecipeOld(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -60,7 +52,7 @@ class SearchViewController: UIViewController {
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
         backgroundPic.contentMode = .scaleAspectFill
         backgroundPic.clipsToBounds = true
-        backgroundPic.image = UIImage(named: recipeOfTheDay.imageName)
+        backgroundPic.image = UIImage(named: "shrimpandgnocci")
         view.addSubview(backgroundPic)
         
         recipeOfTheDayLabel = UILabel()
@@ -97,7 +89,7 @@ class SearchViewController: UIViewController {
         filterButton.layer.borderColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1).cgColor
         filterButton.layer.cornerRadius = 20
         filterButton.clipsToBounds = true
-        filterButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(removeFilter), for: .touchUpInside)
         view.addSubview(filterButton)
         
         searchBar = UISearchBar()
@@ -136,7 +128,28 @@ class SearchViewController: UIViewController {
         filterLayout.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: filterReuseIdentifier)
         view.addSubview(filterLayout)
         
+        getRecipes()
+        getIngredients()
         setUpConstraints()
+}
+    func getIngredients() {
+        NetworkManager.getIngredients { (ingredients) in
+            self.allIngredients = ingredients
+            print(ingredients)
+        }
+    }
+    
+    func getRecipes() {
+        NetworkManager.getRecipes { (recipes) in
+            self.allRecipes = recipes.shuffled()
+        }
+    }
+    
+    @objc func removeFilter() {
+        if (filterArray.count != 0) {
+            filterArray.remove(at: filterArray.count-1)
+        }
+        filterLayout.reloadData()
     }
     
     func setUpConstraints() {
@@ -192,7 +205,7 @@ class SearchViewController: UIViewController {
     }
     
     @objc func pushViewController() {
-        let viewController = ViewController()
+        let viewController = SearchResultsViewController(addedFilters: addedFilters, allRecipes: allRecipes)
         delegate?.pushSearchViewController(to: addedFilters)
         navigationController?.pushViewController(viewController, animated: true)
     }

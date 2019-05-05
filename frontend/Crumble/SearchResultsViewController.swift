@@ -12,15 +12,15 @@ protocol ChangeSearchViewControllerFilterDelegate: class {
     func pushSearchViewController(to newFilters: [Filter])
 }
 
-class ViewController: UIViewController {
+class SearchResultsViewController: UIViewController {
     
     var tableView: UITableView!
     var collectionView: UICollectionView!
-    var recipes: [Recipe]!
+    var recipes: [Recipe]! = []
     var filterArray: [Filter]!
     var refreshControl: UIRefreshControl!
     var filterLabel: UILabel!
-    var addedFilters: [Filter]!
+    var addedFilters: [Filter]! = []
     var selectedRecipes: [Recipe]! = []
     
     let reuseIdentifier = "recipeCellReuse"
@@ -31,6 +31,16 @@ class ViewController: UIViewController {
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
     
+    init(addedFilters: [Filter], allRecipes: [Recipe]) {
+        self.filterArray = addedFilters
+        recipes = allRecipes
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,32 +49,6 @@ class ViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(pushProfileViewController))
         
-        let shrimpandgnocci = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
-        let tacos = Recipe(rating: .moderate, recipeName: "Texas Chile Short Rib Tacos", cookTime: "30 min", imageName: "tacos", ingredients: ["tortillas", "short rib", "lettuce", "red onion", "sour cream"], displayed: true, favorited: false)
-        let porkchops = Recipe(rating: .great, recipeName: "Pan Seared Pork Chops", cookTime: "1 hour", imageName: "porkchops", ingredients: ["pork chops", "bread crumbs"], displayed: true, favorited: false)
-        let lemonsoup = Recipe(rating: .good, recipeName: "Lemony Chicken Soup", cookTime: "45 min", imageName: "lemonsoup", ingredients: ["chicken", "heavy cream", "lemon", "chicken broth"], displayed: true, favorited: false)
-        let medpasta = Recipe(rating: .bad, recipeName: "Mediterranean Pasta", cookTime: "1 hour 15 min", imageName: "medpasta", ingredients: ["penne", "tomatoes", "spinach", "heavy cream"], displayed: true, favorited: false)
-        let salmon = Recipe(rating: .good, recipeName: "Dijon Baked Salmon", cookTime: "45 min", imageName: "salmon", ingredients: ["salmon", "Dijon mustard"], displayed: true, favorited: false)
-        let pretzels = Recipe(rating: .moderate, recipeName: "Stuffed Pretzels", cookTime: "20 min", imageName: "pretzels", ingredients: ["flour", "yeast", "cheese"], displayed: true, favorited: false)
-        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true, favorited: false)
-        
-        let shrimp = Filter(name: "Shrimp", isSelected: false)
-        let spinach = Filter(name: "Spinach", isSelected: true)
-        let penne = Filter(name: "Penne", isSelected: false)
-        let gnocci = Filter(name: "Gnocci", isSelected: false)
-        let shortrib = Filter(name: "Short rib", isSelected: false)
-        let heavycream = Filter(name: "Heavy cream", isSelected: false)
-        let tomatosauce = Filter(name: "Tomato sauce", isSelected: false)
-        
-        recipes = [shrimpandgnocci, tacos, porkchops, lemonsoup, medpasta, salmon, pretzels, tuscanpasta]
-        filterArray = [shrimp, spinach, penne, gnocci, shortrib, heavycream, tomatosauce]
-        
-        addedFilters = []
-        for filter in filterArray {
-            if filter.isSelected == true {
-                addedFilters.append(filter)
-            }
-        }
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -88,11 +72,11 @@ class ViewController: UIViewController {
         filterLabel.clipsToBounds = true
         view.addSubview(filterLabel)
         
-        let layout2 = UICollectionViewFlowLayout()
-        layout2.scrollDirection = .horizontal
-        layout2.minimumInteritemSpacing = padding
-        layout2.minimumLineSpacing = padding
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout2)
+        let filterLayout = UICollectionViewFlowLayout()
+        filterLayout.scrollDirection = .horizontal
+        filterLayout.minimumInteritemSpacing = padding
+        filterLayout.minimumLineSpacing = padding
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: filterLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
         collectionView.delegate = self
@@ -142,14 +126,13 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    @objc func pushRecipeModalViewController() {
-        let viewController = RecipeModalViewController()
+    func pushRecipeModalViewController(recipe: Recipe) {
+        let viewController = RecipeModalViewController(recipe: recipe)
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
 }
 
-extension ViewController: UITableViewDataSource {
+extension SearchResultsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.recipes.count
@@ -157,7 +140,7 @@ extension ViewController: UITableViewDataSource {
     
     // There is just one row in every section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return recipes.count
     }
     
     // Set the spacing between sections
@@ -168,7 +151,7 @@ extension ViewController: UITableViewDataSource {
     /// Tell the table view what cell to display for each row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! RecipeCell
-        let recipe = recipes[indexPath.section]
+        let recipe = recipes[indexPath.row]
         cell.configure(for: recipe)
         cell.selectionStyle = .none
         
@@ -177,7 +160,7 @@ extension ViewController: UITableViewDataSource {
     
 }
 
-extension ViewController: UITableViewDelegate {
+extension SearchResultsViewController: UITableViewDelegate {
     
     /// Tell the table view what height to use for each row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -186,7 +169,8 @@ extension ViewController: UITableViewDelegate {
     
     /// Tell the table view what should happen if we select a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pushRecipeModalViewController()
+        let recipe = recipes[indexPath.row]
+        pushRecipeModalViewController(recipe: recipe)
     }
     
     /// Tell the table view what should happen if we deselect a row
@@ -196,7 +180,7 @@ extension ViewController: UITableViewDelegate {
     
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension SearchResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath) as! FilterCollectionViewCell
@@ -216,7 +200,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 
-extension ViewController: UICollectionViewDelegate {
+extension SearchResultsViewController: UICollectionViewDelegate {
     
     func beginFilter(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedRecipes = []
@@ -265,7 +249,7 @@ extension ViewController: UICollectionViewDelegate {
 
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension SearchResultsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 75.0, height: 50.0)
@@ -273,10 +257,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
-extension ViewController: ChangeSearchViewControllerFilterDelegate {
+extension SearchResultsViewController: ChangeSearchViewControllerFilterDelegate {
     func pushSearchViewController(to newFilters: [Filter]) {
         self.addedFilters = newFilters
-        print("here")
         collectionView.reloadData()
     }
 }
