@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "John Food"
         nameLabel.textColor = .white
-        nameLabel.font = UIFont(name: "SFProText-Bold", size: 24)
+        nameLabel.font = UIFont(name: "Montserrat-Bold", size: 24)
         nameLabel.textAlignment = .center
         view.addSubview(nameLabel)
         
@@ -48,7 +48,7 @@ class ProfileViewController: UIViewController {
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeLabel.text = "Favorite Recipes"
         recipeLabel.textColor = .black
-        recipeLabel.font = UIFont(name: "SFProText-Bold", size: 24)
+        recipeLabel.font = UIFont(name: "Montserrat-Bold", size: 24)
         recipeLabel.textAlignment = .center
         view.addSubview(recipeLabel)
         

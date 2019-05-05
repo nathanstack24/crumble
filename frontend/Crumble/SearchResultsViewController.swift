@@ -26,7 +26,7 @@ class SearchResultsViewController: UIViewController {
     let reuseIdentifier = "recipeCellReuse"
     let filterReuseIdentifier = "filterReuseIdentifier"
     let cellHeight: CGFloat = 250
-    let cellSpacingHeight: CGFloat = 20
+    let cellSpacingHeight: CGFloat = 10
     let filterHeight: CGFloat = 30
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
