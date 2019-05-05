@@ -178,19 +178,18 @@ class LoginView: UIView {
     }
     
     @objc func forgotPasswordButtonPressed () {
-        print("pressed forgot password button")
+        guestDelegate?.loginAsGuest()
     }
     
     @objc func facebookLoginButtonPressed () {
-        print("pressed facebook login button")
+        guestDelegate?.loginAsGuest()
     }
     
     @objc func googleLoginButtonPressed () {
-        print("pressed Google login button")
+        guestDelegate?.loginAsGuest()
     }
     
     @objc func loginAsGuestButtonPressed () {
-        print("login button pressed")
         guestDelegate?.loginAsGuest()
     }
     

@@ -202,6 +202,7 @@ extension LoginViewController: SignUpViewDelegate {
             print(loginDetails)
         }) { (errorMessage) in
             self.createAlert(title: errorMessage, message: "Please enter a valid email, name, and password")
+            
         }
     }
 }

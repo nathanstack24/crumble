@@ -26,7 +26,7 @@ class RecipeModalViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        title = "Recipe"
+        title = recipe.title
         view.backgroundColor = .white
         pictureHeight = 200
         

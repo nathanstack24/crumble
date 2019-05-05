@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F4D7AA1CD8B34C8137CBB7C /* Pods_Crumble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */; };
 		C23AA22422734E6A0014CBD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23AA22322734E6A0014CBD3 /* LoginViewController.swift */; };
+		C2507139227F90C70041B76C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2507138227F90C70041B76C /* User.swift */; };
 		C29BB7BF227E4F080052EEEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7BE227E4F080052EEEB /* NetworkManager.swift */; };
 		C29BB7C1227E6AAF0052EEEB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C0227E6AAF0052EEEB /* Network.swift */; };
 		C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */; };
@@ -36,6 +37,7 @@
 		4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crumble.release.xcconfig"; path = "Target Support Files/Pods-Crumble/Pods-Crumble.release.xcconfig"; sourceTree = "<group>"; };
 		732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crumble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C23AA22322734E6A0014CBD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C2507138227F90C70041B76C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C29BB7BE227E4F080052EEEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C29BB7C0227E6AAF0052EEEB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeOld.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */,
 				D3F9E0B9226D4569006B1242 /* Info.plist */,
 				C29BB7C0227E6AAF0052EEEB /* Network.swift */,
+				C2507138227F90C70041B76C /* User.swift */,
 				C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */,
 				C29BB7BE227E4F080052EEEB /* NetworkManager.swift */,
 				D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */,
@@ -282,6 +285,7 @@
 				D3F9E0AE226D4566006B1242 /* AppDelegate.swift in Sources */,
 				C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */,
 				C29BB7C1227E6AAF0052EEEB /* Network.swift in Sources */,
+				C2507139227F90C70041B76C /* User.swift in Sources */,
 				D3F9E0C4226D46CF006B1242 /* RecipeCell.swift in Sources */,
 				D3F9E0C8226D5F87006B1242 /* FilterCollectionViewCell.swift in Sources */,
 				D3F9E0CC226F6F54006B1242 /* ProfileViewController.swift in Sources */,
