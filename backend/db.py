@@ -2,10 +2,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-association_table = db.Table(
-    'association',
+association_table_i = db.Table(
+    'association_i',
     db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
     db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'))
+)
+
+association_table_t = db.Table(
+    'association_t',
+    db.Column('recipe_id', db.Integer, db.ForeignKey('recipe.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
 )
 
 class Recipe(db.Model):
@@ -29,9 +35,9 @@ class Recipe(db.Model):
     sodium = db.Column(db.Float, nullable=False)
     instructions = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String, nullable=False)
-    #tags
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    ingredients = db.relationship("Ingredient", secondary = association_table, back_populates = "recipes")
+    ingredients = db.relationship("Ingredient", secondary = association_table_i, back_populates = "recipes")
+    tags = db.relationship("Tag", secondary = association_table_t, back_populates = "recipes")
 
     def  __init__(self, **kwargs):
         self.title = kwargs.get('title', '')
@@ -76,67 +82,57 @@ class Recipe(db.Model):
             'sodium': self.sodium,
             'instructions': self.instructions,
             'image_url': self.image_url,
-            'ingredients': [i.serialize() for i in self.ingredients]
-            #tags
+            'ingredients': [i.name for i in self.ingredients],
+            'tags': [t.name for t in self.tags]
         }
 
 class Ingredient(db.Model):
     __tablename__ = 'ingredient'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    #quantity = db.Column(db.Float, nullable=False)
-    #units = db.Column(db.String, nullable=False)
-    recipes = db.relationship("Recipe", secondary = association_table, back_populates = "ingredients")
+    recipes = db.relationship("Recipe", secondary = association_table_i, back_populates = "ingredients")
 
     def  __init__(self, **kwargs):
         self.name = kwargs.get('name', '')
-        #self.quantity = kwargs.get('quantity', -1)
-        #self.units = kwargs.get('units', '')
 
     def serialize(self):
         return {
             'id': self.id,
-            'name': self.name,
-            #'quantity': str(self.quantity) + ' ' + self.units
+            'name': self.name
         }
 
-# class Assignment(db.Model):
-#     __tablename__ = 'assignment'
-#     id = db.Column(db.Integer, primary_key=True)
-#     description = db.Column(db.String, nullable = False)
-#     due_date = db.Column(db.Integer, nullable = False)
-#     class_id = db.Column(db.Integer, db.ForeignKey('class.id'), nullable=False)
-#     associated_class = db.relationship('Class', back_populates = "assignments")
+class Tag(db.Model):
+    __tablename__ = 'tag'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    recipes = db.relationship("Recipe", secondary = association_table_t, back_populates = "tags")
 
-#     def  __init__(self, **kwargs):
-#         self.description = kwargs.get('description', '')
-#         self.due_date = kwargs.get('due_date', -1)
-#         self.class_id = kwargs.get('class_id')
+    def  __init__(self, **kwargs):
+        self.name = kwargs.get('name', '')
 
-#     def serialize(self):
-#         return {
-#             'id': self.id,
-#             'description': self.description,
-#             'due_date': self.due_date,
-#             'class': {
-#                 "id": self.associated_class.id,
-#                 "code": self.associated_class.code,
-#                 "name": self.associated_class.name,
-#             }
-#         }
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+
+
 
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
     favorites = db.relationship("Recipe", cascade='delete')
 
     def  __init__(self, **kwargs):
         self.name = kwargs.get('name', '')
+        self.password = kwargs.get('password', '')
 
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
+            'password': self.password,
             'favorites': [f.serialize() for f in self.favorites]
         }
