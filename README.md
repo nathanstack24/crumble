@@ -7,7 +7,11 @@ Cook smarter.
 Search for recipes by filtering the results to match the ingredients you actually have. Sign up/login to favorite the recipes you love most and quickly find them again. Recipes include nutrition facts to help you keep track of metrics such as calories, fat, and cholesterol.
 
 ## iOS Requirements Met
-- 
+- Autolayout using NSLayoutConstraint on all pages
+- UITableView used to display recipes on the main search page
+- UICollectionViews used to display filters being added in the search page, and filters being used to display recipes in the UITableView
+- UINavigationController used to navigate between login page, search page, recipe page, and profile page
+- Integration with recipe API
 
 ## Backend Requirements Met
 - Multiple GET requests implemented:
