@@ -37,9 +37,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>PlayfairDisplay-Bold.otf</string>
-		<string>SFProText-Bold.otf</string>
-		<string>SFProText-Light.otf</string>
-		<string>SFProText-Regular.otf</string>
+		<string>Montserrat-Bold.otf</string>
+		<string>Montserrat-Light.otf</string>
+		<string>Montserrat-Regular.otf</string>
+		<string>Montserrat-Medium.otf</string>
 	</array>
 </dict>
 </plist>

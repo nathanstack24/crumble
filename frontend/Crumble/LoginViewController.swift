@@ -31,9 +31,9 @@ class LoginViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.contentMode = .scaleAspectFill
-        backgroundColor = UIColor(displayP3Red: 0.29803922, green: 0.19607843, blue: 0.14509804, alpha: 1)
+        backgroundColor = UIColor(red: 76/255, green: 50/255, blue: 37/255, alpha: 1)
         grayColor = UIColor(displayP3Red: 0.96862745, green: 0.9254902, blue: 0.79215686, alpha: 1)
-        orangeColor = UIColor(displayP3Red: 0.83529412, green: 0.52156863, blue: 0.24313725, alpha: 1)
+        orangeColor = UIColor(displayP3Red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         view.backgroundColor = backgroundColor
         navigationController?.navigationBar.barTintColor = backgroundColor
         navigationController?.navigationBar.barStyle = .blackOpaque
@@ -134,7 +134,7 @@ class LoginViewController: UIViewController  {
         NSLayoutConstraint.activate([
             crumbleLogoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
             crumbleLogoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
-            crumbleLogoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -70),
+            crumbleLogoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -130),
             ])
         // Setup constraints for sign in button
         NSLayoutConstraint.activate([
