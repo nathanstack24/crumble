@@ -30,6 +30,7 @@
 		D8BD7086227F904E001729E0 /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8BD7082227F904E001729E0 /* Montserrat-Light.otf */; };
 		D8BD7087227F904E001729E0 /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8BD7083227F904E001729E0 /* Montserrat-Medium.otf */; };
 		D8BD7088227F904E001729E0 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8BD7084227F904E001729E0 /* Montserrat-Bold.otf */; };
+		D8BD708A227F9F07001729E0 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8BD7089227F9F07001729E0 /* Montserrat-SemiBold.otf */; };
 		D8DA8E952271808800E6A671 /* PlayfairDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		D8BD7082227F904E001729E0 /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		D8BD7083227F904E001729E0 /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		D8BD7084227F904E001729E0 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
+		D8BD7089227F9F07001729E0 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
 		D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Bold.otf"; sourceTree = "<group>"; };
 		E0CF27C68525845630A605EB /* Pods-Crumble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crumble.debug.xcconfig"; path = "Target Support Files/Pods-Crumble/Pods-Crumble.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +145,7 @@
 			children = (
 				D8DA8E942271808800E6A671 /* PlayfairDisplay-Bold.otf */,
 				D8BD7084227F904E001729E0 /* Montserrat-Bold.otf */,
+				D8BD7089227F9F07001729E0 /* Montserrat-SemiBold.otf */,
 				D8BD7082227F904E001729E0 /* Montserrat-Light.otf */,
 				D8BD7083227F904E001729E0 /* Montserrat-Medium.otf */,
 				D8BD7081227F904E001729E0 /* Montserrat-Regular.otf */,
@@ -213,6 +216,7 @@
 				D3F9E0B8226D4569006B1242 /* LaunchScreen.storyboard in Resources */,
 				D3F9E0B5226D4568006B1242 /* Assets.xcassets in Resources */,
 				D3F9E0B3226D4566006B1242 /* Main.storyboard in Resources */,
+				D8BD708A227F9F07001729E0 /* Montserrat-SemiBold.otf in Resources */,
 				D8BD7085227F904E001729E0 /* Montserrat-Regular.otf in Resources */,
 				D8DA8E952271808800E6A671 /* PlayfairDisplay-Bold.otf in Resources */,
 				D8BD7087227F904E001729E0 /* Montserrat-Medium.otf in Resources */,

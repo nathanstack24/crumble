@@ -22,6 +22,7 @@ class LoginViewController: UIViewController  {
     var horizontalLine: CGRect!
     var lineView : UIView!
     var currentView: UIView!
+    //var scrollView: UIScrollView!
     
     var sliderView: UIView!
     var loginView: LoginView!
@@ -32,12 +33,18 @@ class LoginViewController: UIViewController  {
         super.viewDidLoad()
         view.contentMode = .scaleAspectFill
         backgroundColor = UIColor(red: 76/255, green: 50/255, blue: 37/255, alpha: 1)
-        grayColor = UIColor(displayP3Red: 0.96862745, green: 0.9254902, blue: 0.79215686, alpha: 1)
-        orangeColor = UIColor(displayP3Red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
+        grayColor = UIColor(red: 247/255, green: 236/255, blue: 202/255, alpha: 1)
+        orangeColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         view.backgroundColor = backgroundColor
         navigationController?.navigationBar.barTintColor = backgroundColor
         navigationController?.navigationBar.barStyle = .blackOpaque
         
+/*        scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        scrollView.backgroundColor = UIColor(white: 0.95, alpha:1)
+        scrollView.isScrollEnabled = true
+        scrollView.alwaysBounceVertical = true
+        view.addSubview(scrollView)*/
         
         // setup horizontal line on login page
         horizontalLine = CGRect(x: 0, y: 100, width: view.frame.width, height: 5)
@@ -81,7 +88,7 @@ class LoginViewController: UIViewController  {
         signInButton.translatesAutoresizingMaskIntoConstraints = false // always need for every view
         signInButton.setTitle("SIGN IN", for: .normal)
         signInButton.setTitleColor(grayColor, for: .normal)
-        signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        signInButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 18)
         signInButton.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         view.addSubview(signInButton)
         
@@ -91,7 +98,7 @@ class LoginViewController: UIViewController  {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false // always need for every view
         signUpButton.setTitle("SIGN UP", for: .normal)
         signUpButton.setTitleColor(grayColor, for: .normal)
-        signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        signUpButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 18)
         signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
         view.addSubview(signUpButton)
         
@@ -132,28 +139,31 @@ class LoginViewController: UIViewController  {
     func setupConstraints() {
         // Setup constraints for image view
         NSLayoutConstraint.activate([
+            crumbleLogoView.heightAnchor.constraint(equalToConstant: 165),
             crumbleLogoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
             crumbleLogoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
-            crumbleLogoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -130),
+            crumbleLogoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 25),
             ])
         // Setup constraints for sign in button
         NSLayoutConstraint.activate([
             signInButton.trailingAnchor.constraint(equalTo: view.centerXAnchor),
             signInButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            signInButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90)
+            signInButton.topAnchor.constraint(equalTo: crumbleLogoView.bottomAnchor,constant: 20),
+            //signInButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90)
              ])
         // Setup constraints for sign up button
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: view.centerXAnchor),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            signUpButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90)
+            signUpButton.topAnchor.constraint(equalTo: crumbleLogoView.bottomAnchor,constant: 20),
+            //signUpButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90)
             ])
 
         NSLayoutConstraint.activate([
             sliderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sliderView.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
             sliderView.heightAnchor.constraint(equalToConstant: 2),
-            sliderView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor)
+            sliderView.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 5)
             ])
     
         // setup constraints for horizontal line
@@ -161,8 +171,15 @@ class LoginViewController: UIViewController  {
             lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             lineView.topAnchor.constraint(equalTo: sliderView.bottomAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: 2)
+            lineView.heightAnchor.constraint(equalToConstant: 1)
             ])
+        
+//        NSLayoutConstraint.activate([
+//            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo:view.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo:view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo:view.bottomAnchor)
+//            ])
     }
     
     func loginSetupConstraints () {
@@ -180,10 +197,12 @@ class LoginViewController: UIViewController  {
         NSLayoutConstraint.activate([
             signupView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             signupView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            signupView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 10),
+            signupView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 20),
             signupView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
     }
+    
+    
 }
 
 extension LoginViewController: LoginViewDelegate {

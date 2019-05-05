@@ -32,7 +32,7 @@ class RecipeCell: UITableViewCell {
         recipeNameLabel.font = UIFont(name: "Montserrat-Bold", size: 18)
         recipeNameLabel.clipsToBounds = true
         recipeNameLabel.lineBreakMode = .byWordWrapping
-        recipeNameLabel.numberOfLines = 3
+        recipeNameLabel.numberOfLines = 0
         recipeNameLabel.textColor = UIColor(red: 248/255, green: 123/255, blue: 84/255, alpha: 1)
         contentView.addSubview(recipeNameLabel)
         

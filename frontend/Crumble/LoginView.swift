@@ -52,7 +52,7 @@ class LoginView: UIView {
         emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.text = "Email"
-        emailLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        emailLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         emailLabel.textColor = orangeColor
         self.addSubview(emailLabel)
         
@@ -75,7 +75,7 @@ class LoginView: UIView {
         passwordLabel = UILabel()
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.text = "Password"
-        passwordLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        passwordLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         passwordLabel.textColor = orangeColor
         self.addSubview(passwordLabel)
         
@@ -100,6 +100,7 @@ class LoginView: UIView {
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         forgotPasswordButton.setAttributedTitle(NSAttributedString(string: "Forgot Password?", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : grayColor]), for: .normal)
+        forgotPasswordButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 16)
         forgotPasswordButton.setTitleColor(grayColor, for: .normal)
         forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
         self.addSubview(forgotPasswordButton)
@@ -110,9 +111,9 @@ class LoginView: UIView {
         loginButton.setTitle("Login", for: .normal)
         loginButton.backgroundColor = grayColor
         loginButton.setTitleColor(brownColor, for: .normal)
-        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        loginButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-        loginButton.layer.cornerRadius = 5
+        loginButton.layer.cornerRadius = 8
         self.addSubview(loginButton)
         
         // login with Facebook button
@@ -121,8 +122,8 @@ class LoginView: UIView {
         loginWithFacebookButton.setTitle("Login with Facebook", for: .normal)
         loginWithFacebookButton.setTitleColor(brownColor, for: .normal)
         loginWithFacebookButton.backgroundColor = grayColor
-        loginWithFacebookButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        loginWithFacebookButton.layer.cornerRadius = 5
+        loginWithFacebookButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        loginWithFacebookButton.layer.cornerRadius = 8
         loginWithFacebookButton.addTarget(self, action: #selector(facebookLoginButtonPressed), for: .touchUpInside)
         self.addSubview(loginWithFacebookButton)
         
@@ -141,8 +142,8 @@ class LoginView: UIView {
         loginWithGoogleButton.setTitle("Login with Google", for: .normal)
         loginWithGoogleButton.setTitleColor(brownColor, for: .normal)
         loginWithGoogleButton.backgroundColor = grayColor
-        loginWithGoogleButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        loginWithGoogleButton.layer.cornerRadius = 5
+        loginWithGoogleButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        loginWithGoogleButton.layer.cornerRadius = 8
         loginWithGoogleButton.addTarget(self, action: #selector(googleLoginButtonPressed), for: .touchUpInside)
         self.addSubview(loginWithGoogleButton)
         
@@ -160,6 +161,7 @@ class LoginView: UIView {
         loginAsGuestButton.translatesAutoresizingMaskIntoConstraints = false
         loginAsGuestButton.setAttributedTitle(NSAttributedString(string: "Login as Guest", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : grayColor]), for: .normal)
+        loginAsGuestButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 16)
         loginAsGuestButton.setTitleColor(grayColor, for: .normal)
         loginAsGuestButton.addTarget(self, action: #selector(loginAsGuestButtonPressed), for: .touchUpInside)
         self.addSubview(loginAsGuestButton)
@@ -220,7 +222,7 @@ class LoginView: UIView {
         // constraints for password label
         NSLayoutConstraint.activate([
             passwordLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            passwordLabel.topAnchor.constraint(equalTo: lineView1.bottomAnchor, constant: 10)
+            passwordLabel.topAnchor.constraint(equalTo: lineView1.bottomAnchor, constant: 20)
             ])
         // constraints for password text field
         NSLayoutConstraint.activate([
@@ -258,8 +260,8 @@ class LoginView: UIView {
         NSLayoutConstraint.activate([
             facebookLogoView.trailingAnchor.constraint(equalTo: loginWithFacebookButton.trailingAnchor, constant: -15
             ),
-            facebookLogoView.widthAnchor.constraint(equalToConstant: 35),
-            facebookLogoView.heightAnchor.constraint(equalToConstant: 35),
+            facebookLogoView.widthAnchor.constraint(equalToConstant: 30),
+            facebookLogoView.heightAnchor.constraint(equalToConstant: 30),
             facebookLogoView.centerYAnchor.constraint(equalTo: loginWithFacebookButton.centerYAnchor)
             ])
         // google login button
@@ -271,10 +273,9 @@ class LoginView: UIView {
             ])
         // google label button
         NSLayoutConstraint.activate([
-            googleLogoView.trailingAnchor.constraint(equalTo: loginWithGoogleButton.trailingAnchor, constant: -15
-            ),
-            googleLogoView.widthAnchor.constraint(equalToConstant: 35),
-            googleLogoView.heightAnchor.constraint(equalToConstant: 35),
+            googleLogoView.trailingAnchor.constraint(equalTo: loginWithGoogleButton.trailingAnchor, constant: -15),
+            googleLogoView.widthAnchor.constraint(equalToConstant: 30),
+            googleLogoView.heightAnchor.constraint(equalToConstant: 30),
             googleLogoView.centerYAnchor.constraint(equalTo: loginWithGoogleButton.centerYAnchor)
             ])
         // login as guest button

@@ -44,7 +44,7 @@ class SignupView: UIView {
         emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.text = "Email"
-        emailLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        emailLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         emailLabel.textColor = orangeColor
         self.addSubview(emailLabel)
         
@@ -67,7 +67,7 @@ class SignupView: UIView {
         usernameLabel = UILabel()
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.text = "Name"
-        usernameLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        usernameLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         usernameLabel.textColor = orangeColor
         self.addSubview(usernameLabel)
         
@@ -90,7 +90,7 @@ class SignupView: UIView {
         passwordLabel = UILabel()
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.text = "Password"
-        passwordLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        passwordLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         passwordLabel.textColor = orangeColor
         self.addSubview(passwordLabel)
         
@@ -117,9 +117,9 @@ class SignupView: UIView {
         createAccountButton.setTitle("Create Account", for: .normal)
         createAccountButton.backgroundColor = grayColor
         createAccountButton.setTitleColor(brownColor, for: .normal)
-        createAccountButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        createAccountButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         createAccountButton.addTarget(self, action: #selector(createAccountButtonPressed), for: .touchUpInside)
-        createAccountButton.layer.cornerRadius = 5
+        createAccountButton.layer.cornerRadius = 8
         self.addSubview(createAccountButton)
         
         // login as guest
@@ -128,6 +128,7 @@ class SignupView: UIView {
         loginAsGuestButton.setAttributedTitle(NSAttributedString(string: "Login as Guest", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : grayColor]), for: .normal)
         loginAsGuestButton.setTitleColor(grayColor, for: .normal)
+        loginAsGuestButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 16)
         loginAsGuestButton.addTarget(self, action: #selector(loginAsGuestButtonPressed), for: .touchUpInside)
         self.addSubview(loginAsGuestButton)
         
@@ -176,7 +177,7 @@ class SignupView: UIView {
         // constraints for username label
         NSLayoutConstraint.activate([
             usernameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            usernameLabel.topAnchor.constraint(equalTo: emailLineView.bottomAnchor, constant: 10)
+            usernameLabel.topAnchor.constraint(equalTo: emailLineView.bottomAnchor, constant: 20)
             ])
         // constraints for username text field
         NSLayoutConstraint.activate([
@@ -194,7 +195,7 @@ class SignupView: UIView {
         // constraints for password label
         NSLayoutConstraint.activate([
             passwordLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            passwordLabel.topAnchor.constraint(equalTo: usernameLineView.bottomAnchor, constant: 10)
+            passwordLabel.topAnchor.constraint(equalTo: usernameLineView.bottomAnchor, constant: 20)
             ])
         
         // constraints for password text field
