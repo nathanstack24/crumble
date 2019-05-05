@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F4D7AA1CD8B34C8137CBB7C /* Pods_Crumble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */; };
+		C23AA22422734E6A0014CBD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23AA22322734E6A0014CBD3 /* LoginViewController.swift */; };
+		C29BB7BF227E4F080052EEEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7BE227E4F080052EEEB /* NetworkManager.swift */; };
+		C29BB7C1227E6AAF0052EEEB /* RecipeNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C0227E6AAF0052EEEB /* RecipeNetwork.swift */; };
+		C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */; };
+		C29BB7CF227EA7990052EEEB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7CE227EA7990052EEEB /* LoginView.swift */; };
+		C29BB7D1227EE5A40052EEEB /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7D0227EE5A40052EEEB /* SignupView.swift */; };
 		D3F9E0AE226D4566006B1242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0AD226D4566006B1242 /* AppDelegate.swift */; };
-		D3F9E0B0226D4566006B1242 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0AF226D4566006B1242 /* ViewController.swift */; };
+		D3F9E0B0226D4566006B1242 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */; };
 		D3F9E0B3226D4566006B1242 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B1226D4566006B1242 /* Main.storyboard */; };
 		D3F9E0B5226D4568006B1242 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B4226D4568006B1242 /* Assets.xcassets */; };
 		D3F9E0B8226D4569006B1242 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */; };
-		D3F9E0C0226D4659006B1242 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0BF226D4659006B1242 /* Recipe.swift */; };
 		D3F9E0C4226D46CF006B1242 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */; };
 		D3F9E0C6226D471E006B1242 /* RecipeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0C5226D471E006B1242 /* RecipeModalViewController.swift */; };
 		D3F9E0C8226D5F87006B1242 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0C7226D5F87006B1242 /* FilterCollectionViewCell.swift */; };
@@ -26,14 +32,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crumble.release.xcconfig"; path = "Target Support Files/Pods-Crumble/Pods-Crumble.release.xcconfig"; sourceTree = "<group>"; };
+		732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crumble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C23AA22322734E6A0014CBD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C29BB7BE227E4F080052EEEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C29BB7C0227E6AAF0052EEEB /* RecipeNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeNetwork.swift; sourceTree = "<group>"; };
+		C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeOld.swift; sourceTree = "<group>"; };
+		C29BB7CE227EA7990052EEEB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C29BB7D0227EE5A40052EEEB /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		D3F9E0AA226D4566006B1242 /* Crumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F9E0AD226D4566006B1242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D3F9E0AF226D4566006B1242 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		D3F9E0B2226D4566006B1242 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3F9E0B4226D4568006B1242 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3F9E0B7226D4569006B1242 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3F9E0B9226D4569006B1242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3F9E0BF226D4659006B1242 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		D3F9E0C5226D471E006B1242 /* RecipeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModalViewController.swift; sourceTree = "<group>"; };
 		D3F9E0C7226D5F87006B1242 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -44,6 +57,7 @@
 		D8DA8E9C2271884700E6A671 /* SFProText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.otf"; sourceTree = "<group>"; };
 		D8DA8EA22271886600E6A671 /* SFProText-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Light.otf"; path = "../../../font/SFProText-Light.otf"; sourceTree = "<group>"; };
 		D8DA8EA42271886C00E6A671 /* SFProText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFProText-Regular.otf"; path = "../../../font/SFProText-Regular.otf"; sourceTree = "<group>"; };
+		E0CF27C68525845630A605EB /* Pods-Crumble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crumble.debug.xcconfig"; path = "Target Support Files/Pods-Crumble/Pods-Crumble.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,17 +65,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F4D7AA1CD8B34C8137CBB7C /* Pods_Crumble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25410B155DFE3DD2CE041ABA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8144742D504850C3FBD041BF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E0CF27C68525845630A605EB /* Pods-Crumble.debug.xcconfig */,
+				4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D3F9E0A1226D4566006B1242 = {
 			isa = PBXGroup;
 			children = (
 				D3F9E0AC226D4566006B1242 /* Crumble */,
 				D3F9E0AB226D4566006B1242 /* Products */,
+				8144742D504850C3FBD041BF /* Pods */,
+				25410B155DFE3DD2CE041ABA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,17 +111,22 @@
 			isa = PBXGroup;
 			children = (
 				D3F9E0AD226D4566006B1242 /* AppDelegate.swift */,
-				D3F9E0AF226D4566006B1242 /* ViewController.swift */,
+				D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */,
 				D3F9E0B1226D4566006B1242 /* Main.storyboard */,
 				D3F9E0B4226D4568006B1242 /* Assets.xcassets */,
 				D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */,
 				D3F9E0B9226D4569006B1242 /* Info.plist */,
-				D3F9E0BF226D4659006B1242 /* Recipe.swift */,
+				C29BB7C0227E6AAF0052EEEB /* RecipeNetwork.swift */,
+				C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */,
+				C29BB7BE227E4F080052EEEB /* NetworkManager.swift */,
 				D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */,
 				D3F9E0C5226D471E006B1242 /* RecipeModalViewController.swift */,
 				D3F9E0C7226D5F87006B1242 /* FilterCollectionViewCell.swift */,
 				D3F9E0C9226D5FEC006B1242 /* Filter.swift */,
 				D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */,
+				C23AA22322734E6A0014CBD3 /* LoginViewController.swift */,
+				C29BB7CE227EA7990052EEEB /* LoginView.swift */,
+				C29BB7D0227EE5A40052EEEB /* SignupView.swift */,
 				D3F9E0CD226F6FCD006B1242 /* SearchViewController.swift */,
 				D8DA8E932271806700E6A671 /* Font */,
 			);
@@ -112,9 +151,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3F9E0BC226D4569006B1242 /* Build configuration list for PBXNativeTarget "Crumble" */;
 			buildPhases = (
+				56C8888E8F09404D2B8EE9D6 /* [CP] Check Pods Manifest.lock */,
 				D3F9E0A6226D4566006B1242 /* Sources */,
 				D3F9E0A7226D4566006B1242 /* Frameworks */,
 				D3F9E0A8226D4566006B1242 /* Resources */,
+				4536FBA91BE3D6DAD960AD55 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -175,19 +216,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4536FBA91BE3D6DAD960AD55 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Crumble/Pods-Crumble-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Crumble/Pods-Crumble-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56C8888E8F09404D2B8EE9D6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Crumble-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D3F9E0A6226D4566006B1242 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29BB7D1227EE5A40052EEEB /* SignupView.swift in Sources */,
+				C29BB7BF227E4F080052EEEB /* NetworkManager.swift in Sources */,
 				D3F9E0CA226D5FEC006B1242 /* Filter.swift in Sources */,
-				D3F9E0C0226D4659006B1242 /* Recipe.swift in Sources */,
-				D3F9E0B0226D4566006B1242 /* ViewController.swift in Sources */,
+				D3F9E0B0226D4566006B1242 /* SearchResultsViewController.swift in Sources */,
 				D3F9E0CE226F6FCD006B1242 /* SearchViewController.swift in Sources */,
 				D3F9E0AE226D4566006B1242 /* AppDelegate.swift in Sources */,
+				C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */,
+				C29BB7C1227E6AAF0052EEEB /* RecipeNetwork.swift in Sources */,
 				D3F9E0C4226D46CF006B1242 /* RecipeCell.swift in Sources */,
 				D3F9E0C8226D5F87006B1242 /* FilterCollectionViewCell.swift in Sources */,
 				D3F9E0CC226F6F54006B1242 /* ProfileViewController.swift in Sources */,
+				C29BB7CF227EA7990052EEEB /* LoginView.swift in Sources */,
+				C23AA22422734E6A0014CBD3 /* LoginViewController.swift in Sources */,
 				D3F9E0C6226D471E006B1242 /* RecipeModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +427,7 @@
 		};
 		D3F9E0BD226D4569006B1242 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0CF27C68525845630A605EB /* Pods-Crumble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -350,6 +446,7 @@
 		};
 		D3F9E0BE226D4569006B1242 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -6,13 +6,6 @@
 //  Copyright © 2019 Beth Mieczkowski. All rights reserved.
 //
 
-//
-//  SongTableViewCell.swift
-//  eam356_p4
-//
-//  Created by Beth Mieczkowski on 3/23/19.
-//  Copyright © 2019 Beth Mieczkowski. All rights reserved.
-//
 
 import UIKit
 
@@ -24,10 +17,11 @@ class RecipeCell: UITableViewCell {
     var favoriteView: UIImageView!
     var unfavoritedView: UIImageView!
     
-    let padding: CGFloat = 15
+    let padding: CGFloat = 8
     let labelHeight: CGFloat = 25
     let recipeImageWidth: CGFloat = 175
     let recipeImageHeight: CGFloat = 100
+    let recipeLabelHeight: CGFloat = 25
     let heartImageWidth: CGFloat = 25
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -36,6 +30,7 @@ class RecipeCell: UITableViewCell {
         recipeNameLabel = UILabel()
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeNameLabel.font = UIFont(name: "SFProText-Bold", size: 18)
+        recipeNameLabel.clipsToBounds = true
         recipeNameLabel.textColor = UIColor(red: 248/255, green: 123/255, blue: 84/255, alpha: 1)
         contentView.addSubview(recipeNameLabel)
         
@@ -55,18 +50,18 @@ class RecipeCell: UITableViewCell {
         unfavoritedView.translatesAutoresizingMaskIntoConstraints = false
         unfavoritedView.contentMode = .scaleAspectFit
         unfavoritedView.isHidden = false
-        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(unfavoritedTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerUnfavorite = UITapGestureRecognizer(target: self, action: #selector(unfavoritedTapped(tapGestureRecognizer:)))
         unfavoritedView.isUserInteractionEnabled = true
-        unfavoritedView.addGestureRecognizer(tapGestureRecognizer1)
+        unfavoritedView.addGestureRecognizer(tapGestureRecognizerUnfavorite)
         contentView.addSubview(unfavoritedView)
         
         favoriteView = UIImageView(image: #imageLiteral(resourceName: "filledheart"))
         favoriteView.translatesAutoresizingMaskIntoConstraints = false
         favoriteView.contentMode = .scaleAspectFit
         favoriteView.isHidden = true
-        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(favoriteTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerFavorite = UITapGestureRecognizer(target: self, action: #selector(favoriteTapped(tapGestureRecognizer:)))
         favoriteView.isUserInteractionEnabled = true
-        favoriteView.addGestureRecognizer(tapGestureRecognizer2)
+        favoriteView.addGestureRecognizer(tapGestureRecognizerFavorite)
         contentView.addSubview(favoriteView)
         
         setupConstraints()
@@ -84,28 +79,27 @@ class RecipeCell: UITableViewCell {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            recipePhoto.heightAnchor.constraint(equalToConstant: 150),
-            recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            recipePhoto.heightAnchor.constraint(equalToConstant: recipeImageHeight),
+            recipePhoto.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
             ])
         
         NSLayoutConstraint.activate([
             recipeNameLabel.leadingAnchor.constraint(equalTo: recipePhoto.leadingAnchor),
-            recipeNameLabel.topAnchor.constraint(equalTo: recipePhoto.bottomAnchor, constant: 10),
-            //recipeNameLabel.heightAnchor.constraint(equalToConstant: labelHeight)
+            recipeNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            recipeNameLabel.heightAnchor.constraint(equalToConstant: recipeLabelHeight)
             ])
         
         NSLayoutConstraint.activate([
-            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 15),
+            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: padding),
             cookTimeLabel.leadingAnchor.constraint(equalTo: recipeNameLabel.leadingAnchor),
-            //cookTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
             cookTimeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            //cookTimeLabel.heightAnchor.constraint(equalToConstant: labelHeight)
             ])
         
         NSLayoutConstraint.activate([
             unfavoritedView.trailingAnchor.constraint(equalTo: recipePhoto.trailingAnchor),
-            unfavoritedView.topAnchor.constraint(equalTo: recipeNameLabel.topAnchor),
+            unfavoritedView.centerYAnchor.constraint(equalTo: recipeNameLabel.centerYAnchor),
             unfavoritedView.heightAnchor.constraint(equalToConstant: heartImageWidth),
             unfavoritedView.widthAnchor.constraint(equalToConstant: heartImageWidth)
             ])
@@ -119,10 +113,9 @@ class RecipeCell: UITableViewCell {
     }
     
     func configure(for recipe: Recipe) {
-        recipeNameLabel.text = recipe.recipeName
-        cookTimeLabel.text = recipe.cookTime
-        recipePhoto.image = UIImage(named: recipe.imageName)
-        
+        recipeNameLabel.text = recipe.title
+        cookTimeLabel.text = (String) (recipe.cook_time)
+        recipePhoto.image = UIImage(data: try! Data(contentsOf: URL(string: recipe.image_url)!))
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -1,12 +1,13 @@
 //
-//  Recipe.swift
+//  RecipeOld.swift
 //  Crumble
 //
-//  Created by Beth Mieczkowski on 4/21/19.
+//  Created by Nathan Stack on 5/4/19.
 //  Copyright © 2019 Beth Mieczkowski. All rights reserved.
 //
 
 import Foundation
+
 import UIKit
 
 enum RecipeRating {
@@ -17,8 +18,8 @@ enum RecipeRating {
     case great
 }
 
-class Recipe {
-        
+class RecipeOld {
+    
     var rating: RecipeRating
     var recipeName: String
     var cookTime: String
@@ -26,7 +27,7 @@ class Recipe {
     var ingredients: [String]
     var displayed: Bool
     var favorited: Bool
-        
+    
     init(rating: RecipeRating, recipeName: String, cookTime: String, imageName: String, ingredients: [String], displayed: Bool, favorited: Bool) {
         self.rating = rating
         self.recipeName = recipeName
@@ -35,7 +36,6 @@ class Recipe {
         self.ingredients = ingredients
         self.displayed = displayed
         self.favorited = favorited
-        }
-        
+    }
+    
 }
-

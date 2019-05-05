@@ -15,7 +15,6 @@ class ProfileViewController: UIViewController {
     var recipeLabel: UILabel!
     var tableView: UITableView!
     var refreshControl: UIRefreshControl!
-    var recipes: [Recipe]!
     var favoriteRecipes: [Recipe]!
     let reuseIdentifier = "recipeCellReuse"
     let cellHeight: CGFloat = 250
@@ -28,23 +27,7 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         view.backgroundColor = .white
         
-        let shrimpandgnocci = Recipe(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: true)
-        let tacos = Recipe(rating: .moderate, recipeName: "Texas Chile Short Rib Tacos", cookTime: "30 min", imageName: "tacos", ingredients: ["tortillas", "short rib", "lettuce", "red onion", "sour cream"], displayed: true, favorited: false)
-        let porkchops = Recipe(rating: .great, recipeName: "Pan Seared Pork Chops", cookTime: "1 hour", imageName: "porkchops", ingredients: ["pork chops", "bread crumbs"], displayed: true, favorited: false)
-        let lemonsoup = Recipe(rating: .good, recipeName: "Lemony Chicken Soup", cookTime: "45 min", imageName: "lemonsoup", ingredients: ["chicken", "heavy cream", "lemon", "chicken broth"], displayed: true, favorited: false)
-        let medpasta = Recipe(rating: .bad, recipeName: "Mediterranean Pasta", cookTime: "1 hour 15 min", imageName: "medpasta", ingredients: ["penne", "tomatoes", "spinach", "heavy cream"], displayed: true, favorited: false)
-        let salmon = Recipe(rating: .good, recipeName: "Dijon Baked Salmon", cookTime: "45 min", imageName: "salmon", ingredients: ["salmon", "Dijon mustard"], displayed: true, favorited: true)
-        let pretzels = Recipe(rating: .moderate, recipeName: "Stuffed Pretzels", cookTime: "20 min", imageName: "pretzels", ingredients: ["flour", "yeast", "cheese"], displayed: true, favorited: false)
-        let tuscanpasta = Recipe(rating: .great, recipeName: "Creamy Tuscan Pasta", cookTime: "55 min", imageName: "tuscanpasta", ingredients: ["penne", "chicken", "spinach", "tomato sauce"], displayed: true, favorited: true)
         
-        recipes = [shrimpandgnocci, tacos, porkchops, lemonsoup, medpasta, salmon, pretzels, tuscanpasta]
-        
-        favoriteRecipes = []
-        for rec in recipes {
-            if rec.favorited == true {
-                favoriteRecipes.append(rec)
-            }
-        }
         
         backgroundPic = UIImageView(frame: .zero)
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
