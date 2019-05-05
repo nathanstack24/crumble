@@ -20,7 +20,6 @@ class SearchViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var addedFilters: [Filter]!
     var filterArray: [Filter]!
-    var allIngredients: [Ingredient]! = []
     var allRecipes: [Recipe]! = []
     
     let filterReuseIdentifier = "filterReuseIdentifier"
@@ -42,8 +41,6 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
-        
-        let recipeOfTheDay =  RecipeOld(rating: .good, recipeName: "Shrimp and Gnocci", cookTime: "1 hour 30 min", imageName: "shrimpandgnocci", ingredients: ["shrimp", "gnocci", "cream", "spinach"], displayed: true, favorited: false)
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -129,14 +126,7 @@ class SearchViewController: UIViewController {
         view.addSubview(filterLayout)
         
         getRecipes()
-        getIngredients()
         setUpConstraints()
-}
-    func getIngredients() {
-        NetworkManager.getIngredients { (ingredients) in
-            self.allIngredients = ingredients
-            print(ingredients)
-        }
     }
     
     func getRecipes() {
@@ -240,7 +230,6 @@ extension SearchViewController: UICollectionViewDelegate {
             if let addFilter = filter {
                 if !addedFilters.contains(where: {$0.name == addFilter.name}) {
                     addedFilters.append(addFilter)
-                    addFilter.isSelected = true
                 }
             }
         }
@@ -249,13 +238,6 @@ extension SearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = filterArray[indexPath.item]
-        if filter.isSelected == false {
-            filter.isSelected = true
-            collectionView.reloadData()
-        }
-        else {
-            filter.isSelected = false
-        }
         collectionView.reloadItems(at: [indexPath])
         collectionView.collectionViewLayout.invalidateLayout()
     }

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController  {
 
     var crumbleLogoView : UIImageView!
     var crumbleLogo: UIImage!
@@ -24,8 +24,8 @@ class LoginViewController: UIViewController {
     var currentView: UIView!
     
     var sliderView: UIView!
-    var loginView: UIView!
-    var signupView: UIView!
+    var loginView: LoginView!
+    var signupView: SignupView!
 
     
     override func viewDidLoad() {
@@ -54,6 +54,8 @@ class LoginViewController: UIViewController {
         
         // setup login view
         loginView = LoginView(brownColor: backgroundColor, grayColor: grayColor, orangeColor: orangeColor)
+        loginView.delegate = self
+        loginView.guestDelegate = self
         currentView = loginView
         view.addSubview(loginView)
         loginSetupConstraints()
@@ -61,6 +63,7 @@ class LoginViewController: UIViewController {
         // setup sign up view
         signupView = SignupView(brownColor: backgroundColor, grayColor: grayColor, orangeColor: orangeColor)
         signupView.isHidden = true
+        signupView.delegate = self
         view.addSubview(signupView)
         signUpSetupConstraints()
         
@@ -115,6 +118,14 @@ class LoginViewController: UIViewController {
         UIView.animate(withDuration: 0.2) {
             self.sliderView.frame = CGRect(x: self.view.frame.width / 2, y: self.sliderView.frame.minY, width: self.sliderView.frame.width, height: self.sliderView.frame.height)
         }
+    }
+    
+    func createAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -173,16 +184,33 @@ class LoginViewController: UIViewController {
             signupView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension LoginViewController: LoginViewDelegate {
+    func validateData(email: String, password: String) {
+        NetworkManager.postEmailAndPassword(email: email, password: password, completion: { (loginDetails) in
+            print(loginDetails)
+        }) { (errorMessage) in
+            self.createAlert(title: errorMessage, message: "Please enter a valid email and password")
+        }
     }
-    */
+}
 
+extension LoginViewController: SignUpViewDelegate {
+    func signUpData(email: String, name: String, password: String) {
+        NetworkManager.postNewUser(email: email, name: name, password: password, completion: { (loginDetails) in
+            print(loginDetails)
+        }) { (errorMessage) in
+            self.createAlert(title: errorMessage, message: "Please enter a valid email, name, and password")
+        }
+    }
+}
+
+extension LoginViewController: LoginAsGuestDelegate {
+    func loginAsGuest() {
+        let viewController = SearchViewController(addedFilters: [])
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
 }

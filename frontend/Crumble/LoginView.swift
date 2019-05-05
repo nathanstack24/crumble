@@ -9,10 +9,18 @@
 import UIKit
 import SnapKit
 
+protocol LoginViewDelegate: class  {
+    func validateData(email: String, password: String)
+}
+
+protocol LoginAsGuestDelegate: class {
+    func loginAsGuest()
+}
+
 class LoginView: UIView {
     
-    var usernameTextField : UITextField!
-    var usernameLabel : UILabel!
+    var emailTextField : UITextField!
+    var emailLabel : UILabel!
     var lineView1: UIView!
     var passwordLabel: UILabel!
     var passwordTextField: UITextField!
@@ -25,6 +33,8 @@ class LoginView: UIView {
     var loginWithGoogleButton: UIButton!
     var googleLogoView: UIImageView!
     var loginAsGuestButton: UIButton!
+    weak var delegate: LoginViewDelegate?
+    weak var guestDelegate: LoginAsGuestDelegate?
     
     var buffer: CGFloat!
     var distFromTop: CGFloat!
@@ -38,24 +48,24 @@ class LoginView: UIView {
         distFromTop = 15
         buttonHeight = 50
         
-        // label for username
-        usernameLabel = UILabel()
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.text = "Username"
-        usernameLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        usernameLabel.textColor = orangeColor
-        self.addSubview(usernameLabel)
+        // label for email
+        emailLabel = UILabel()
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.text = "Email"
+        emailLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        emailLabel.textColor = orangeColor
+        self.addSubview(emailLabel)
         
-        // username text field
-        usernameTextField = UITextField()
-        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextField.backgroundColor = brownColor
-        usernameTextField.borderStyle = .none
-        usernameTextField.clipsToBounds = true
-        usernameTextField.textColor = grayColor
-        self.addSubview(usernameTextField)
+        // email text field
+        emailTextField = UITextField()
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.backgroundColor = brownColor
+        emailTextField.borderStyle = .none
+        emailTextField.clipsToBounds = true
+        emailTextField.textColor = grayColor
+        self.addSubview(emailTextField)
         
-        // username line
+        // email line
         lineView1 = UIView()
         lineView1.translatesAutoresizingMaskIntoConstraints = false
         lineView1.backgroundColor = orangeColor
@@ -159,23 +169,12 @@ class LoginView: UIView {
     
     @objc func loginButtonPressed () {
         print("login button pressed")
-//        if let username = usernameTextField.text, username != "" {
-//            print("Valid username and password")
-//        }
-//        else {
-//            createAlert(title: "Invalid Username and/or Password", message: "Please enter a valid username and password")
-//            print("in else statement")
-//        }
-    }
-    
-    func createAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        
-        inputViewController?.present(alert, animated: true, completion: nil)
-        
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            delegate?.validateData(email: email, password: password)
+        }
+        else {
+            print("in else statement")
+        }
     }
     
     @objc func forgotPasswordButtonPressed () {
@@ -191,7 +190,8 @@ class LoginView: UIView {
     }
     
     @objc func loginAsGuestButtonPressed () {
-        print("pressed login as guest button")
+        print("login button pressed")
+        guestDelegate?.loginAsGuest()
     }
     
     
@@ -202,20 +202,20 @@ class LoginView: UIView {
     func setupConstraints() {
         // constraints for username label
         NSLayoutConstraint.activate([
-            usernameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            usernameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: self.distFromTop)
+            emailLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
+            emailLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: self.distFromTop)
             ])
         // constraints for username text field
         NSLayoutConstraint.activate([
-            usernameTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            usernameTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
-            usernameTextField.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 5)
+            emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
+            emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
+            emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 5)
             ])
         // constraints for username line
         NSLayoutConstraint.activate([
             lineView1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
             lineView1.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
-            lineView1.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 15),
+            lineView1.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 15),
             lineView1.heightAnchor.constraint(equalToConstant: 2)
             ])
         // constraints for password label
@@ -283,7 +283,5 @@ class LoginView: UIView {
             loginAsGuestButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             loginAsGuestButton.topAnchor.constraint(equalTo: loginWithGoogleButton.bottomAnchor, constant: 25),
             ])
-        
-        
     }
 }

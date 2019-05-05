@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol SignUpViewDelegate: class  {
+    func signUpData(email: String, name: String, password: String)
+}
+
+
 class SignupView: UIView {
     
     var emailTextField : UITextField!
@@ -21,6 +26,7 @@ class SignupView: UIView {
     var passwordLineView: UIView!
     var createAccountButton: UIButton!
     var loginAsGuestButton: UIButton!
+    weak var delegate: SignUpViewDelegate?
     
     var buffer: CGFloat!
     var distFromTop: CGFloat!
@@ -57,10 +63,10 @@ class SignupView: UIView {
         emailLineView.backgroundColor = orangeColor
         self.addSubview(emailLineView)
         
-        // label for username
+        // label for name
         usernameLabel = UILabel()
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameLabel.text = "Username"
+        usernameLabel.text = "Name"
         usernameLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         usernameLabel.textColor = orangeColor
         self.addSubview(usernameLabel)
@@ -131,6 +137,12 @@ class SignupView: UIView {
     
     @objc func createAccountButtonPressed () {
         print("pressed create account button")
+        if let email = emailTextField.text, let password = passwordTextField.text, let name = usernameTextField.text {
+            delegate?.signUpData(email: email, name: name, password: password)
+        }
+        else {
+            print("in else statement")
+        }
     }
     
     @objc func loginAsGuestButtonPressed () {
@@ -210,8 +222,8 @@ class SignupView: UIView {
             loginAsGuestButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             loginAsGuestButton.topAnchor.constraint(equalTo: createAccountButton.bottomAnchor, constant: 25),
             ])
-        
-        
     }
 }
+
+
 

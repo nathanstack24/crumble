@@ -11,11 +11,9 @@ import UIKit
 class Filter {
     
     var name: String
-    var isSelected: Bool
     
-    init(name: String, isSelected: Bool) {
+    init(name: String) {
         self.name = name
-        self.isSelected = isSelected
     }
     
 }

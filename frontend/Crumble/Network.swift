@@ -37,12 +37,20 @@ struct RecipeDataResponse: Codable {
     var data: [Recipe]
 }
 
-struct Ingredient: Codable {
-    var id: Int
-    var name: String
+struct LoginDetails: Codable {
+    var session_token: String
+    var session_expiration: String
+    var update_token: String
+}
+
+struct LoginResponseData: Codable {
+    var success: Bool
+    var data: LoginDetails
+}
+
+struct LoginResponseDataFailure: Codable {
+    var success: Bool
+    var error: String
 }
 
 
-struct IngredientDataResponse: Codable {
-    var data: [Ingredient]
-}

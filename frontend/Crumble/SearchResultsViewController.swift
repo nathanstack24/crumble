@@ -236,11 +236,11 @@ extension SearchResultsViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = filterArray[indexPath.item]
-        if filter.isSelected == false {
-            filter.isSelected = true
-            beginFilter(collectionView, didSelectItemAt: indexPath)
-            collectionView.reloadData()
-        }
+//        if filter.isSelected == false {
+//            filter.isSelected = true
+//            beginFilter(collectionView, didSelectItemAt: indexPath)
+//            collectionView.reloadData()
+//        }
         collectionView.reloadItems(at: [indexPath])
         collectionView.collectionViewLayout.invalidateLayout()
         }
