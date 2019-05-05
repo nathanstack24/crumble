@@ -12,8 +12,8 @@ Search for recipes by filtering the results to match the ingredients you actuall
 - Recipe Search Page: includes a UITableView of all recipes that fit the filters, and a UICollectionView of the filters being used
 - Recipe Page: includes titles, authors, descriptions, ingredients list, and instructions for recipes
 - UINavigationController used to navigate between login page, search page, recipe page, and profile page
-  - used when selecting "Search Recipes" button on main search page, when clicking on a recipe to see its information, and when clicking on the profile icon in the Navigation Bar
-  - includes a back button to return to the previous view controller
+  - Used when selecting "Search Recipes" button on main search page, when clicking on a recipe to see its information, and when clicking on the profile icon in the Navigation Bar
+  - Includes a back button to return to the previous view controller
 - Integration with recipe API
 
 ## Backend Requirements Met
