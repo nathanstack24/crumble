@@ -14,6 +14,9 @@ class RecipeModalViewController: UIViewController {
     var pictureHeight: CGFloat!
     var recipeLabel: UILabel!
     var recipeByLabel: UILabel!
+    var recipeDescription: UILabel!
+    var recipeInstructions: UILabel!
+    var recipeInstructionsHeader: UILabel!
     var recipe: Recipe
     
     init(recipe: Recipe) {
@@ -30,8 +33,6 @@ class RecipeModalViewController: UIViewController {
         view.backgroundColor = .white
         pictureHeight = 200
         
-        
-        
         backgroundPic = UIImageView(frame: .zero)
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
         backgroundPic.contentMode = .scaleAspectFill
@@ -41,7 +42,7 @@ class RecipeModalViewController: UIViewController {
         
         recipeLabel = UILabel()
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeLabel.text = "Shrimp and Gnocci"
+        recipeLabel.text = recipe.title
         recipeLabel.textColor = .black
         recipeLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
         recipeLabel.textAlignment = .center
@@ -49,11 +50,38 @@ class RecipeModalViewController: UIViewController {
         
         recipeByLabel = UILabel()
         recipeByLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeByLabel.text = "Recipe Made By: Beth Mieczkowski"
+        recipeByLabel.text = "Recipe By: " + recipe.author
         recipeByLabel.textColor = .black
-        recipeByLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 14)
-        recipeByLabel.textAlignment = .center
+        recipeByLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 18)
+        recipeByLabel.textAlignment = .left
         view.addSubview(recipeByLabel)
+        
+        recipeDescription = UILabel()
+        recipeDescription.translatesAutoresizingMaskIntoConstraints = false
+        recipeDescription.text = recipe.description
+        recipeDescription.textColor = .black
+        recipeDescription.numberOfLines = 0
+        recipeDescription.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        recipeDescription.textAlignment = .center
+        view.addSubview(recipeDescription)
+        
+        recipeInstructionsHeader = UILabel()
+        recipeInstructionsHeader.translatesAutoresizingMaskIntoConstraints = false
+        recipeInstructionsHeader.text = "Instructions: "
+        recipeInstructionsHeader.textColor = .black
+        recipeInstructionsHeader.numberOfLines = 0
+        recipeInstructionsHeader.font = UIFont(name: "PlayfairDisplay-Bold", size: 18)
+        recipeInstructionsHeader.textAlignment = .center
+        view.addSubview(recipeInstructionsHeader)
+        
+        recipeInstructions = UILabel()
+        recipeInstructions.translatesAutoresizingMaskIntoConstraints = false
+        recipeInstructions.text = recipe.instructions
+        recipeInstructions.textColor = .black
+        recipeInstructions.numberOfLines = 0
+        recipeInstructions.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        recipeInstructions.textAlignment = .left
+        view.addSubview(recipeInstructions)
         
          setUpConstraints()
     }
@@ -76,6 +104,24 @@ class RecipeModalViewController: UIViewController {
             recipeByLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recipeByLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             recipeByLabel.heightAnchor.constraint(equalToConstant: 20)
+            ])
+        NSLayoutConstraint.activate([
+            recipeDescription.topAnchor.constraint(equalTo: recipeByLabel.bottomAnchor, constant: 20),
+            recipeDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            recipeDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            recipeDescription.heightAnchor.constraint(equalToConstant: 100)
+            ])
+        NSLayoutConstraint.activate([
+            recipeInstructionsHeader.topAnchor.constraint(equalTo: recipeDescription.bottomAnchor, constant: 20),
+            recipeInstructionsHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            recipeInstructionsHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            recipeInstructionsHeader.heightAnchor.constraint(equalToConstant: 20)
+            ])
+        NSLayoutConstraint.activate([
+            recipeInstructions.topAnchor.constraint(equalTo: recipeDescription.bottomAnchor, constant: 20),
+            recipeInstructions.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            recipeInstructions.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            recipeInstructions.heightAnchor.constraint(equalToConstant: 300)
             ])
     }
     
