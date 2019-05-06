@@ -72,7 +72,7 @@ class LoginViewController: UIViewController  {
         // setup logo image view
         crumbleLogoView = UIImageView() // creates a new UIImageView instance
         crumbleLogoView.translatesAutoresizingMaskIntoConstraints = false
-        crumbleLogoView.image = UIImage(named: "loginLogo")
+        crumbleLogoView.image = UIImage(named: "loginlogo")
         crumbleLogoView.clipsToBounds = true // image clipped to bounds of the receiver
         crumbleLogoView.contentMode = .scaleAspectFit
         view.addSubview(crumbleLogoView)

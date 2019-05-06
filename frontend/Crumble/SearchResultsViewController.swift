@@ -164,6 +164,9 @@ class SearchResultsViewController: UIViewController {
     @objc func pushProfileViewController() {
         NetworkManager.getFavoritedRecipes(sessionToken: currentUser.session_token) { (recipes) in
             self.favoritedRecipes = recipes
+            for rec in recipes {
+                print(rec.title)
+            }
         }
         let viewController = ProfileViewController(recipes: favoritedRecipes, user: self.currentUser)
         navigationController?.pushViewController(viewController, animated: true)

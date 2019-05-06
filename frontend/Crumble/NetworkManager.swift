@@ -123,6 +123,7 @@ class NetworkManager {
         Alamofire.request(getFavoritesEndpoint, method: .get, headers: ["Authorization":sessionToken]).validate().responseData { (response) in
             switch response.result {
             case .success(let data):
+                print("successfully got all favorites")
                 let jsonDecoder = JSONDecoder()
                 if let favoritesResponse = try? jsonDecoder.decode(FavoritedInfo.self, from: data) {
                     let favorites = favoritesResponse.favorites
