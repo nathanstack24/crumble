@@ -21,7 +21,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
         filterLabel.translatesAutoresizingMaskIntoConstraints = false
         filterLabel.textColor = .black
         filterLabel.backgroundColor = UIColor(red: 251/255, green: 224/255, blue: 170/255, alpha: 1)
-        filterLabel.font = UIFont(name: "Montserrat-Regular", size: 8)
+        filterLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         filterLabel.textAlignment = .center
         filterLabel.layer.borderWidth = 1
         filterLabel.layer.borderColor = UIColor(red: 243/255, green: 185/255, blue: 70/255, alpha: 1).cgColor
