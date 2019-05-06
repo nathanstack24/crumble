@@ -12,7 +12,6 @@ protocol SignUpViewDelegate: class  {
     func signUpData(email: String, name: String, password: String)
 }
 
-
 class SignupView: UIView {
     
     var emailTextField : UITextField!
@@ -27,6 +26,7 @@ class SignupView: UIView {
     var createAccountButton: UIButton!
     var loginAsGuestButton: UIButton!
     weak var delegate: SignUpViewDelegate?
+    weak var guestDelegate: LoginAsGuestDelegate?
     
     var buffer: CGFloat!
     var distFromTop: CGFloat!
@@ -146,7 +146,7 @@ class SignupView: UIView {
     }
     
     @objc func loginAsGuestButtonPressed () {
-        print("pressed login as guest button")
+        guestDelegate?.loginAsGuest()
     }
     
     

@@ -1,18 +1,17 @@
 //
-//  FilterCollectionViewCell.swift
+//  AddedFiltersCollectionViewCell.swift
 //  Crumble
 //
-//  Created by Beth Mieczkowski on 4/21/19.
+//  Created by Nathan Stack on 5/5/19.
 //  Copyright © 2019 Beth Mieczkowski. All rights reserved.
 //
 
 import UIKit
 
-class FilterCollectionViewCell: UICollectionViewCell {
+class AddedFiltersCollectionViewCell: UICollectionViewCell {
     
     var filterLabel: UILabel!
     var filterHeight: CGFloat = 20
-    var xOut: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,13 +27,6 @@ class FilterCollectionViewCell: UICollectionViewCell {
         filterLabel.layer.cornerRadius = filterHeight / 2
         filterLabel.clipsToBounds = true
         contentView.addSubview(filterLabel)
-        
-        xOut = UIButton()
-        xOut.translatesAutoresizingMaskIntoConstraints = false
-        xOut.setTitle("x", for: .normal)
-        xOut.setTitleColor(.black, for: .normal)
-        xOut.addTarget(self, action: #selector(clearFilter), for: .touchUpInside)
-        contentView.addSubview(xOut)
         
         setupConstraints()
     }
@@ -56,18 +48,13 @@ class FilterCollectionViewCell: UICollectionViewCell {
             filterLabel.heightAnchor.constraint(equalToConstant: 36),
             filterLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
             ])
-        NSLayoutConstraint.activate([
-            xOut.topAnchor.constraint(equalTo: filterLabel.topAnchor),
-            xOut.trailingAnchor.constraint(equalTo: filterLabel.trailingAnchor, constant: -5),
-            xOut.widthAnchor.constraint(equalToConstant: 8)
-            ])
-        filterLabel.textRect(forBounds: CGRect(x: filterLabel.frame.minX, y: filterLabel.frame.minY, width: xOut.frame.minX-filterLabel.frame.minY, height: filterLabel.frame.height), limitedToNumberOfLines: 1)
     }
     
     func configure(for filter: Filter) {
         filterLabel.text = filter.name
     }
     
-
+    
 }
+
 

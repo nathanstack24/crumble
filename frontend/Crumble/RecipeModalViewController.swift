@@ -29,9 +29,6 @@ class RecipeModalViewController: UIViewController {
         title = recipe.title
         view.backgroundColor = .white
         pictureHeight = 200
-        
-        
-        
         backgroundPic = UIImageView(frame: .zero)
         backgroundPic.translatesAutoresizingMaskIntoConstraints = false
         backgroundPic.contentMode = .scaleAspectFill

@@ -21,11 +21,12 @@ class LoginViewController: UIViewController  {
     var signUpButton: UIButton!
     var horizontalLine: CGRect!
     var lineView : UIView!
-    var currentView: UIView!
     
     var sliderView: UIView!
     var loginView: LoginView!
     var signupView: SignupView!
+    var currentView: UIView!
+    var currentUser: User!
 
     
     override func viewDidLoad() {
@@ -64,6 +65,7 @@ class LoginViewController: UIViewController  {
         signupView = SignupView(brownColor: backgroundColor, grayColor: grayColor, orangeColor: orangeColor)
         signupView.isHidden = true
         signupView.delegate = self
+        signupView.guestDelegate = self
         view.addSubview(signupView)
         signUpSetupConstraints()
         
@@ -148,7 +150,7 @@ class LoginViewController: UIViewController  {
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             signUpButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90)
             ])
-
+        // setup constraints for slider bar
         NSLayoutConstraint.activate([
             sliderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sliderView.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
@@ -199,9 +201,11 @@ extension LoginViewController: LoginViewDelegate {
 extension LoginViewController: SignUpViewDelegate {
     func signUpData(email: String, name: String, password: String) {
         NetworkManager.postNewUser(email: email, name: name, password: password, completion: { (loginDetails) in
-            print(loginDetails)
+            let viewController = SearchViewController(addedFilters: [])
+            self.navigationController?.pushViewController(viewController, animated: true)
         }) { (errorMessage) in
             self.createAlert(title: errorMessage, message: "Please enter a valid email, name, and password")
+            self.sliderView.frame = CGRect(x: self.view.frame.width / 2, y: self.sliderView.frame.minY, width: self.sliderView.frame.width, height: self.sliderView.frame.height)
             
         }
     }
