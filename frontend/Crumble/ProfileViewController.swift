@@ -96,8 +96,7 @@ class ProfileViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.refreshControl.endRefreshing()
         }
-
-}
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {

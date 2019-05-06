@@ -39,7 +39,7 @@ class RecipeModalViewController: UIViewController {
     override func viewDidLoad() {
         title = recipe.title
         view.backgroundColor = .white
-        pictureHeight = 300
+        pictureHeight = 200
         let style = NSMutableParagraphStyle.init()
         style.lineSpacing = 10
         

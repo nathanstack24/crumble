@@ -10,6 +10,7 @@
 		0F4D7AA1CD8B34C8137CBB7C /* Pods_Crumble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */; };
 		C23AA22422734E6A0014CBD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23AA22322734E6A0014CBD3 /* LoginViewController.swift */; };
 		C2507139227F90C70041B76C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2507138227F90C70041B76C /* User.swift */; };
+		C250713B227FB3B30041B76C /* AddedFiltersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C250713A227FB3B30041B76C /* AddedFiltersCollectionViewCell.swift */; };
 		C29BB7BF227E4F080052EEEB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7BE227E4F080052EEEB /* NetworkManager.swift */; };
 		C29BB7C1227E6AAF0052EEEB /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C0227E6AAF0052EEEB /* Network.swift */; };
 		C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */; };
@@ -40,6 +41,7 @@
 		732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crumble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C23AA22322734E6A0014CBD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C2507138227F90C70041B76C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C250713A227FB3B30041B76C /* AddedFiltersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedFiltersCollectionViewCell.swift; sourceTree = "<group>"; };
 		C29BB7BE227E4F080052EEEB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C29BB7C0227E6AAF0052EEEB /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		C29BB7C2227E83EB0052EEEB /* RecipeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeOld.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */,
 				D3F9E0C5226D471E006B1242 /* RecipeModalViewController.swift */,
 				D3F9E0C7226D5F87006B1242 /* FilterCollectionViewCell.swift */,
+				C250713A227FB3B30041B76C /* AddedFiltersCollectionViewCell.swift */,
 				D3F9E0C9226D5FEC006B1242 /* Filter.swift */,
 				D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */,
 				C23AA22322734E6A0014CBD3 /* LoginViewController.swift */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C29BB7D1227EE5A40052EEEB /* SignupView.swift in Sources */,
+				C250713B227FB3B30041B76C /* AddedFiltersCollectionViewCell.swift in Sources */,
 				C29BB7BF227E4F080052EEEB /* NetworkManager.swift in Sources */,
 				D3F9E0CA226D5FEC006B1242 /* Filter.swift in Sources */,
 				D3F9E0B0226D4566006B1242 /* SearchResultsViewController.swift in Sources */,

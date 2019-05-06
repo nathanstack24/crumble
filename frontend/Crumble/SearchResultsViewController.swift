@@ -8,16 +8,11 @@
 
 import UIKit
 
-protocol ChangeSearchViewControllerFilterDelegate: class {
-    func pushSearchViewController(to newFilters: [Filter])
-}
-
 class SearchResultsViewController: UIViewController {
     
     var tableView: UITableView!
     var collectionView: UICollectionView!
     var recipes: [Recipe]! = []
-    var filterArray: [Filter]!
     var refreshControl: UIRefreshControl!
     var filterLabel: UILabel!
     var addedFilters: [Filter]! = []
@@ -33,7 +28,7 @@ class SearchResultsViewController: UIViewController {
     let filterSpace: CGFloat = 20
     
     init(addedFilters: [Filter], allRecipes: [Recipe]) {
-        self.filterArray = addedFilters
+        self.addedFilters = addedFilters
         recipes = allRecipes
         super.init(nibName: nil, bundle: nil)
     }
@@ -83,20 +78,42 @@ class SearchResultsViewController: UIViewController {
         filterLabel.clipsToBounds = true
         view.addSubview(filterLabel)
         
-        let filterLayout = UICollectionViewFlowLayout()
-        filterLayout.scrollDirection = .horizontal
-        filterLayout.minimumInteritemSpacing = padding
-        filterLayout.minimumLineSpacing = padding
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: filterLayout)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = padding
+        layout.minimumLineSpacing = padding
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         //collectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
-        collectionView.register(FilterCollectionViewCell.self, forCellWithReuseIdentifier: filterReuseIdentifier)
+        collectionView.register(AddedFiltersCollectionViewCell.self, forCellWithReuseIdentifier: filterReuseIdentifier)
         view.addSubview(collectionView)
         
         setupConstraints()
+        setupSelectedRecipes()
+    }
+    
+    func setupSelectedRecipes() {
+        
+        for rec in recipes {
+            for fil in addedFilters {
+                let upperCaseFilter = fil.name.uppercased(with: .current)
+                for ingredient in rec.ingredients {
+                    let upperCaseIngredient = ingredient.uppercased(with: .current)
+                    if upperCaseIngredient.contains(upperCaseFilter) {
+                        if !selectedRecipes.contains(where: { (recipe) -> Bool in
+                            return recipe.title==rec.title
+                        }) {
+                            selectedRecipes.append(rec)
+                        }
+                    }
+                }
+                
+            }
+        }
+        self.collectionView.reloadData()
     }
     
     func setupConstraints() {
@@ -146,12 +163,12 @@ class SearchResultsViewController: UIViewController {
 extension SearchResultsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.recipes.count
+        return selectedRecipes.count
     }
     
     // There is just one row in every section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipes.count
+        return selectedRecipes.count
     }
     
     // Set the spacing between sections
@@ -162,7 +179,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     /// Tell the table view what cell to display for each row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! RecipeCell
-        let recipe = recipes[indexPath.row]
+        let recipe = selectedRecipes[indexPath.row]
         cell.configure(for: recipe)
         cell.selectionStyle = .none
         
@@ -190,21 +207,15 @@ extension SearchResultsViewController: UITableViewDelegate {
     
     /// Tell the table view what should happen if we select a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = recipes[indexPath.row]
+        let recipe = selectedRecipes[indexPath.row]
         pushRecipeModalViewController(recipe: recipe)
     }
-    
-    /// Tell the table view what should happen if we deselect a row
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
-    }
-    
 }
 
 extension SearchResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath) as! FilterCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: filterReuseIdentifier, for: indexPath) as! AddedFiltersCollectionViewCell
         let filter = addedFilters[indexPath.item]
         cell.configure(for: filter)
         return cell
@@ -222,65 +233,17 @@ extension SearchResultsViewController: UICollectionViewDataSource {
 
 
 extension SearchResultsViewController: UICollectionViewDelegate {
-    
-    func beginFilter(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedRecipes = []
-        let filter = filterArray[indexPath.item]
-        addedFilters.append(filter)
-        for rec in recipes {
-            for fil in addedFilters {
-                if rec.ingredients.contains(fil.name) {
-                    selectedRecipes.append(rec)
-                    }
-                }
-            }
-            self.collectionView.reloadData()
-        }
-    
-    
-//    func endFilter(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let filter = filterArray[indexPath.item]
-//        selectedFilters.remove(at: selectedFilters.count-1)
-//        for rest in restaurantsArray {
-//            if selectedFilters.count == 0 {
-//                selectedRestaurants = restaurantsArray
-//            }
-//            else {
-//                if rest.categories.contains(filter.name) && rest.displayed == true {
-//                    rest.displayed = false
-//                    selectedRestaurants = selectedRestaurants.filter( {$0.restaurantName != rest.restaurantName})
-//                }
-//            }
-//            self.collectionView1.reloadData()
-//        }
-//    }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let filter = filterArray[indexPath.item]
-//        if filter.isSelected == false {
-//            filter.isSelected = true
-//            beginFilter(collectionView, didSelectItemAt: indexPath)
-//            collectionView.reloadData()
-//        }
-        collectionView.reloadItems(at: [indexPath])
-        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
         }
     }
-
-
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchResultsViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 75.0, height: 50.0)
+        print("in function")
+        return CGSize(width: 100.0, height: 50.0)
     }
     
-}
-
-extension SearchResultsViewController: ChangeSearchViewControllerFilterDelegate {
-    func pushSearchViewController(to newFilters: [Filter]) {
-        self.addedFilters = newFilters
-        collectionView.reloadData()
-    }
 }

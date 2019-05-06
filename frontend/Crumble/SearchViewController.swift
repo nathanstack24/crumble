@@ -12,19 +12,15 @@ class SearchViewController: UIViewController {
     
     var searchButton: UIButton!
     var addButton: UIButton!
-    var filterButton: UIButton!
     var backgroundPic: UIImageView!
     var recipeOfTheDayLabel: UILabel!
     var searchBar: UISearchBar!
     var filterLayout: UICollectionView!
     var refreshControl: UIRefreshControl!
-    var addedFilters: [Filter]!
-    var filterArray: [Filter]!
+    var addedFilters: [Filter]! = []
     var allRecipes: [Recipe]! = []
     
     let filterReuseIdentifier = "filterReuseIdentifier"
-    
-    weak var delegate: ChangeSearchViewControllerFilterDelegate?
     
     init(addedFilters: [Filter]) {
         self.addedFilters = addedFilters
@@ -76,19 +72,6 @@ class SearchViewController: UIViewController {
         searchButton.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
         view.addSubview(searchButton)
         
-        filterButton = UIButton()
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton.setTitle("- Filter", for: .normal)
-        filterButton.titleLabel!.font = UIFont(name: "Montserrat-Bold", size: 18)
-        filterButton.setTitleColor(.black, for: .normal)
-        filterButton.backgroundColor = .white
-        filterButton.layer.borderWidth = 3
-        filterButton.layer.borderColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1).cgColor
-        filterButton.layer.cornerRadius = 20
-        filterButton.clipsToBounds = true
-        filterButton.addTarget(self, action: #selector(removeFilter), for: .touchUpInside)
-        view.addSubview(filterButton)
-        
         searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.isTranslucent = true
@@ -112,8 +95,8 @@ class SearchViewController: UIViewController {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 2
         filterLayout = UICollectionView(frame: .zero, collectionViewLayout: layout)
         filterLayout.translatesAutoresizingMaskIntoConstraints = false
         filterLayout.backgroundColor = .white
@@ -136,8 +119,8 @@ class SearchViewController: UIViewController {
     }
     
     @objc func removeFilter() {
-        if (filterArray.count != 0) {
-            filterArray.remove(at: filterArray.count-1)
+        if (addedFilters.count != 0) {
+            addedFilters.remove(at: addedFilters.count-1)
         }
         filterLayout.reloadData()
     }
@@ -168,22 +151,16 @@ class SearchViewController: UIViewController {
             searchButton.widthAnchor.constraint(equalToConstant: 300)
             ])
         NSLayoutConstraint.activate([
-            addButton.leadingAnchor.constraint(equalTo: searchButton.leadingAnchor),
+            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
             addButton.heightAnchor.constraint(equalToConstant: 50),
             addButton.widthAnchor.constraint(equalToConstant: 110)
             ])
         NSLayoutConstraint.activate([
-            filterButton.trailingAnchor.constraint(equalTo: searchButton.trailingAnchor),
-            filterButton.centerYAnchor.constraint(equalTo: searchButton.topAnchor, constant: -40),
-            filterButton.heightAnchor.constraint(equalToConstant: 50),
-            filterButton.widthAnchor.constraint(equalToConstant: 110)
-            ])
-        NSLayoutConstraint.activate([
             filterLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             filterLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             filterLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            filterLayout.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 50)
+            filterLayout.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 20)
             ])
     }
     
@@ -196,7 +173,6 @@ class SearchViewController: UIViewController {
     
     @objc func pushViewController() {
         let viewController = SearchResultsViewController(addedFilters: addedFilters, allRecipes: allRecipes)
-        delegate?.pushSearchViewController(to: addedFilters)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -226,20 +202,19 @@ extension SearchViewController: UICollectionViewDelegate {
     @objc func addFilter(_ collectionView: UICollectionView) {
         if searchBar.text != "" {
             let ingredient = searchBar.text!
-            let filter = filterArray.first(where: {$0.name == ingredient})
-            if let addFilter = filter {
-                if !addedFilters.contains(where: {$0.name == addFilter.name}) {
-                    addedFilters.append(addFilter)
-                }
+            let filter = Filter(name: ingredient)
+            if (!addedFilters.contains(where: { (oldFilter) -> Bool in
+                return oldFilter.name == filter.name
+            })) {
+                addedFilters.append(filter)
             }
         }
         self.filterLayout.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let filter = filterArray[indexPath.item]
-        collectionView.reloadItems(at: [indexPath])
-        collectionView.collectionViewLayout.invalidateLayout()
+        addedFilters.remove(at: indexPath.item)
+        collectionView.reloadData()
     }
     
 }
@@ -248,7 +223,7 @@ extension SearchViewController: UICollectionViewDelegate {
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 150, height: 100)
+            return CGSize(width: 150, height: 50)
     }
     
 }
