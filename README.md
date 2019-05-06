@@ -1,8 +1,6 @@
 # Crumble
 Cook smarter.
 
-## Images
-
 ## Description
 Search for recipes by filtering the results to match the ingredients you actually have. Sign up/login to favorite the recipes you love most and quickly find them again. Recipes include nutrition facts to help you keep track of metrics such as calories, fat, and cholesterol.
 
@@ -51,3 +49,12 @@ Search for recipes by filtering the results to match the ingredients you actuall
 - All backend code can be found in the _crumble/backend_ directory
 - A JSON of information for 100 recipes was scraped from allrecipes.com and used to create the database's recipes. The python script used to scrape the recipes is _step1.py_ and can be found in the _crumble_ directory
 - Additional iOS features to the ones listed above were implemented (including SearchController and UIScrollView)
+
+
+## Images
+![](Screenshots/SignUp.png)
+![](Screenshots/SignIn.png)
+![](Screenshots/SearchPage.png)
+![](Screenshots/SearchResult.png)
+![](Screenshots/DetailRecipe.png)
+![](Screenshots/DetailRecipe2.png)
