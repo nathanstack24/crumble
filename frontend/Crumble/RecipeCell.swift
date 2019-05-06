@@ -17,12 +17,19 @@ class RecipeCell: UITableViewCell {
     var favoriteView: UIImageView!
     var unfavoritedView: UIImageView!
     
-    let padding: CGFloat = 20
-    let labelHeight: CGFloat = 20
-    let recipeImageWidth: CGFloat = 175
-    let recipeImageHeight: CGFloat = 150
-    let recipeLabelHeight: CGFloat = 25
-    let heartImageWidth: CGFloat = 25
+//    let padding: CGFloat = 20
+//    let labelHeight: CGFloat = 20
+//    let recipeImageWidth: CGFloat = 175
+//    let recipeImageHeight: CGFloat = 240
+//    let recipeLabelHeight: CGFloat = 24
+//    let heartImageWidth: CGFloat = 24
+    
+    override func layoutSubviews() {
+        // Set the width of the cell
+        self.bounds = CGRect(x: self.bounds.origin.x, y: self.bounds.origin.y, width: self.bounds.size.width - 40, height: self.bounds.size.height)
+        super.layoutSubviews()
+    }
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -81,44 +88,54 @@ class RecipeCell: UITableViewCell {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            recipePhoto.heightAnchor.constraint(equalToConstant: recipeImageHeight),
+            recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipePhoto.heightAnchor.constraint(equalToConstant: 150),
             recipePhoto.topAnchor.constraint(equalTo: self.topAnchor),
-            recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
+            recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
             ])
         
         NSLayoutConstraint.activate([
-            recipeNameLabel.leadingAnchor.constraint(equalTo: recipePhoto.leadingAnchor),
-            recipeNameLabel.topAnchor.constraint(equalTo: recipePhoto.bottomAnchor, constant: 10),
+            recipeNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            recipeNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 165),
             recipeNameLabel.trailingAnchor.constraint(equalTo: unfavoritedView.leadingAnchor, constant: -10),
-            recipeNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            recipeNameLabel.heightAnchor.constraint(equalToConstant: recipeLabelHeight)
+            recipeNameLabel.heightAnchor.constraint(equalToConstant: 20)
             ])
         
         NSLayoutConstraint.activate([
-            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 10),
-            cookTimeLabel.leadingAnchor.constraint(equalTo: recipeNameLabel.leadingAnchor),
-            cookTimeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 0),
+            cookTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            cookTimeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             ])
         
         NSLayoutConstraint.activate([
-            unfavoritedView.trailingAnchor.constraint(equalTo: recipePhoto.trailingAnchor),
-            unfavoritedView.centerYAnchor.constraint(equalTo: recipeNameLabel.centerYAnchor),
-            unfavoritedView.heightAnchor.constraint(equalToConstant: heartImageWidth),
-            unfavoritedView.widthAnchor.constraint(equalToConstant: heartImageWidth)
+            unfavoritedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            unfavoritedView.topAnchor.constraint(equalTo: recipeNameLabel.topAnchor),
+            unfavoritedView.heightAnchor.constraint(equalToConstant: 20),
+            unfavoritedView.widthAnchor.constraint(equalToConstant: 20)
             ])
         
         NSLayoutConstraint.activate([
-            favoriteView.trailingAnchor.constraint(equalTo: recipePhoto.trailingAnchor),
+            favoriteView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             favoriteView.topAnchor.constraint(equalTo: recipeNameLabel.topAnchor),
-            favoriteView.heightAnchor.constraint(equalToConstant: heartImageWidth),
-            favoriteView.widthAnchor.constraint(equalToConstant: heartImageWidth)
+            favoriteView.heightAnchor.constraint(equalToConstant: 20),
+            favoriteView.widthAnchor.constraint(equalToConstant: 20)
             ])
     }
     
     func configure(for recipe: Recipe) {
         recipeNameLabel.text = recipe.title
-        cookTimeLabel.text = (String) (recipe.cook_time)
+        if ((recipe.total_time) == -1) {
+            cookTimeLabel.text = "Total Time: " + "Unavailable"
+        }
+        else if (((recipe.total_time)/60) == 0) {
+            cookTimeLabel.text = "Total Time: " + (String) ((recipe.total_time)%60) + " mins"
+        }
+        else if ((((recipe.total_time)/60)/24) == 0) {
+            cookTimeLabel.text = "Total Time: " + (String) ((recipe.total_time)/60) + " hrs " + (String) ((recipe.total_time)%60) + " mins"
+        }
+        else {
+            cookTimeLabel.text = "Total Time: " + (String) (((recipe.total_time)/60)/24) + " days " + (String) (((recipe.total_time)/60)%24) + " hrs " + (String) ((recipe.total_time)%60) + " mins"
+        }
         recipePhoto.image = UIImage(data: try! Data(contentsOf: URL(string: recipe.image_url)!))
     }
     

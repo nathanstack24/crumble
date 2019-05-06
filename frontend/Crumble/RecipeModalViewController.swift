@@ -64,7 +64,7 @@ class RecipeModalViewController: UIViewController {
         recipeLabel = UILabel()
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeLabel.text = recipe.title
-        recipeLabel.textColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
+        recipeLabel.textColor = UIColor(red: 248/255, green: 123/255, blue: 84/255, alpha: 1)
         recipeLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 24)
         recipeLabel.numberOfLines = 0
         recipeLabel.lineBreakMode = .byWordWrapping

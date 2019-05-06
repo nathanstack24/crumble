@@ -22,11 +22,12 @@ class SearchResultsViewController: UIViewController {
     var filterLabel: UILabel!
     var addedFilters: [Filter]! = []
     var selectedRecipes: [Recipe]! = []
+    var profileBtn: UIButton!
     
     let reuseIdentifier = "recipeCellReuse"
     let filterReuseIdentifier = "filterReuseIdentifier"
     let cellHeight: CGFloat = 250
-    let cellSpacingHeight: CGFloat = 10
+    let cellSpacingHeight: CGFloat = 100
     let filterHeight: CGFloat = 30
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
@@ -45,10 +46,18 @@ class SearchResultsViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Search Results"
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(pushProfileViewController))
+        profileBtn = UIButton()
+        profileBtn.setImage(UIImage(named: "profile"), for: .normal) //set image for button
+        profileBtn.translatesAutoresizingMaskIntoConstraints = false
+        profileBtn.addTarget(self, action: #selector(pushProfileViewController), for: .touchUpInside)
+        profileBtn.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        profileBtn.heightAnchor.constraint(equalToConstant: 28).isActive = true
         
+        //assign button to navigationbar
+        let barButton = UIBarButtonItem(customView: profileBtn)
+        self.navigationItem.rightBarButtonItem = barButton
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -56,8 +65,10 @@ class SearchResultsViewController: UIViewController {
         // Initialize tableView
         tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        //tableView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none //hide the horizontal lines
         tableView.register(RecipeCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(tableView)
         
@@ -65,7 +76,7 @@ class SearchResultsViewController: UIViewController {
         filterLabel.translatesAutoresizingMaskIntoConstraints = false
         filterLabel.text = "Filter"
         filterLabel.textColor = .white
-        filterLabel.font = UIFont(name: "SFProText-Bold", size: 16)
+        filterLabel.font = UIFont(name: "Mentserrat-SemiBold", size: 16)
         filterLabel.textAlignment = .center
         filterLabel.backgroundColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1)
         filterLabel.layer.cornerRadius = 20
@@ -78,7 +89,7 @@ class SearchResultsViewController: UIViewController {
         filterLayout.minimumLineSpacing = padding
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: filterLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        //collectionView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
@@ -99,7 +110,7 @@ class SearchResultsViewController: UIViewController {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 50),
+            //collectionView.heightAnchor.constraint(equalToConstant: 50),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
         NSLayoutConstraint.activate([
@@ -155,8 +166,18 @@ extension SearchResultsViewController: UITableViewDataSource {
         cell.configure(for: recipe)
         cell.selectionStyle = .none
         
+        cell.layer.cornerRadius = 8
+        //cell.layer.masksToBounds = true
+        
+        cell.layer.masksToBounds = false
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 4)
+        cell.layer.shadowOpacity = 0.1
+        cell.layer.shadowRadius = 5
+        
         return cell
     }
+
     
 }
 
