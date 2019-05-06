@@ -52,7 +52,7 @@ class SearchViewController: UIViewController {
         
         recipeOfTheDayLabel = UILabel()
         recipeOfTheDayLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeOfTheDayLabel.text = "Recipe of the Day"
+        recipeOfTheDayLabel.text = "Cook smarter."
         recipeOfTheDayLabel.textColor = .black
         recipeOfTheDayLabel.font = UIFont(name: "PlayfairDisplay-Bold", size: 18)
         recipeOfTheDayLabel.textAlignment = .center
@@ -79,6 +79,7 @@ class SearchViewController: UIViewController {
         searchBar.isTranslucent = true
         searchBar.placeholder = "Ingredient"
         searchBar.showsSearchResultsButton = true
+        searchBar.barTintColor = .white
 //        searchBar.delegate = self
         view.addSubview(searchBar)
         

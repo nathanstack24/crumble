@@ -135,33 +135,4 @@ class NetworkManager {
             }
         }
     }
-    
-    
-//    static func updateSession(updateToken: String, completion: @escaping (LoginDetails) -> Void) {
-//        let parameters: [String: Any] = [
-//            "name": name,
-//            "email": email,
-//            "password": password
-//        ]
-//        Alamofire.request(signupEndpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).validate().responseData { (response) in
-//            switch response.result {
-//            case .success(let data):
-//                let jsonDecoder = JSONDecoder()
-//                if let signUpResponse = try? jsonDecoder.decode(LoginResponseData.self, from: data) {
-//                    let signupDetails = signUpResponse.data
-//                    completion(signupDetails)
-//                } else {
-//                    if let errorResponse = try? jsonDecoder.decode(LoginResponseDataFailure.self, from: data) {
-//                        let errorMessage = errorResponse.error
-//                        errorCompletion(errorMessage)
-//                    } else {
-//                        print("Error!")
-//                    }
-//                }
-//            case .failure(let error):
-//                print("the post request failed")
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
 }

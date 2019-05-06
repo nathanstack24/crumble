@@ -39,13 +39,6 @@ class LoginViewController: UIViewController  {
         navigationController?.navigationBar.barTintColor = backgroundColor
         navigationController?.navigationBar.barStyle = .blackOpaque
         
-/*        scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.backgroundColor = UIColor(white: 0.95, alpha:1)
-        scrollView.isScrollEnabled = true
-        scrollView.alwaysBounceVertical = true
-        view.addSubview(scrollView)*/
-        
         // setup horizontal line on login page
         horizontalLine = CGRect(x: 0, y: 100, width: view.frame.width, height: 5)
         lineView = UIView(frame: horizontalLine)

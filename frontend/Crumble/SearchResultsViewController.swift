@@ -5,7 +5,6 @@
 //  Created by Beth Mieczkowski on 4/21/19.
 //  Copyright © 2019 Beth Mieczkowski. All rights reserved.
 //
-
 import UIKit
 
 class SearchResultsViewController: UIViewController {
@@ -27,6 +26,7 @@ class SearchResultsViewController: UIViewController {
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
     var currentUser: User!
+    var favoritedRecipes: [Recipe]! = []
     
     init(addedFilters: [Filter], allRecipes: [Recipe], currentUser: User) {
         self.addedFilters = addedFilters
@@ -78,6 +78,7 @@ class SearchResultsViewController: UIViewController {
         filterLabel.backgroundColor = UIColor(red:49/255, green:142/255, blue:254/255, alpha: 1)
         filterLabel.layer.cornerRadius = 20
         filterLabel.clipsToBounds = true
+        filterLabel.isHidden = true
         view.addSubview(filterLabel)
         
         let layout = UICollectionViewFlowLayout()
@@ -161,7 +162,10 @@ class SearchResultsViewController: UIViewController {
     }
     
     @objc func pushProfileViewController() {
-        let viewController = ProfileViewController()
+        NetworkManager.getFavoritedRecipes(sessionToken: currentUser.session_token) { (recipes) in
+            self.favoritedRecipes = recipes
+        }
+        let viewController = ProfileViewController(recipes: favoritedRecipes, user: self.currentUser)
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -206,7 +210,7 @@ extension SearchResultsViewController: UITableViewDataSource {
         cell.recipeID = recipe.id
         return cell
     }
-
+    
     
 }
 
@@ -245,11 +249,11 @@ extension SearchResultsViewController: UICollectionViewDataSource {
 
 
 extension SearchResultsViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.reloadData()
-        }
     }
+}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchResultsViewController: UICollectionViewDelegateFlowLayout {

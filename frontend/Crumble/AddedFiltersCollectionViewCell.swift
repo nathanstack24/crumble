@@ -5,7 +5,6 @@
 //  Created by Nathan Stack on 5/5/19.
 //  Copyright © 2019 Beth Mieczkowski. All rights reserved.
 //
-
 import UIKit
 
 class AddedFiltersCollectionViewCell: UICollectionViewCell {
@@ -56,5 +55,3 @@ class AddedFiltersCollectionViewCell: UICollectionViewCell {
     
     
 }
-
-
