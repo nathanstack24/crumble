@@ -37,6 +37,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>PlayfairDisplay-Bold.otf</string>
+		<string>PlayfairDisplay-Regular.otf</string>
 		<string>Montserrat-Bold.otf</string>
 		<string>Montserrat-Light.otf</string>
 		<string>Montserrat-Regular.otf</string>
