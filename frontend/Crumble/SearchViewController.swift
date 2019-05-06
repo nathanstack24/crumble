@@ -36,7 +36,7 @@ class SearchViewController: UIViewController {
         title = "Crumble"
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-Bold", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white]
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
@@ -64,7 +64,7 @@ class SearchViewController: UIViewController {
         searchButton = UIButton()
         searchButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.setTitle("Search Recipes", for: .normal)
-        searchButton.titleLabel!.font = UIFont(name: "SFProText-Bold", size: 20)
+        searchButton.titleLabel!.font = UIFont(name: "Montserrat-Bold", size: 20)
         searchButton.setTitleColor(.white, for: .normal)
         searchButton.backgroundColor = UIColor(red: 254/255, green: 164/255, blue: 49/255, alpha: 1)
         searchButton.layer.cornerRadius = 25
@@ -83,7 +83,7 @@ class SearchViewController: UIViewController {
         addButton = UIButton()
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("+ Add", for: .normal)
-        addButton.titleLabel!.font = UIFont(name: "SFProText-Bold", size: 18)
+        addButton.titleLabel!.font = UIFont(name: "Montserrat-Bold", size: 18)
         addButton.setTitleColor(.black, for: .normal)
         addButton.backgroundColor = .white
         addButton.layer.borderWidth = 3

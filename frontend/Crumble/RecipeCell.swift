@@ -17,10 +17,10 @@ class RecipeCell: UITableViewCell {
     var favoriteView: UIImageView!
     var unfavoritedView: UIImageView!
     
-    let padding: CGFloat = 8
-    let labelHeight: CGFloat = 25
+    let padding: CGFloat = 20
+    let labelHeight: CGFloat = 20
     let recipeImageWidth: CGFloat = 175
-    let recipeImageHeight: CGFloat = 100
+    let recipeImageHeight: CGFloat = 150
     let recipeLabelHeight: CGFloat = 25
     let heartImageWidth: CGFloat = 25
     
@@ -29,14 +29,16 @@ class RecipeCell: UITableViewCell {
         
         recipeNameLabel = UILabel()
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeNameLabel.font = UIFont(name: "SFProText-Bold", size: 18)
+        recipeNameLabel.font = UIFont(name: "Montserrat-Bold", size: 18)
         recipeNameLabel.clipsToBounds = true
+        recipeNameLabel.lineBreakMode = .byWordWrapping
+        recipeNameLabel.numberOfLines = 0
         recipeNameLabel.textColor = UIColor(red: 248/255, green: 123/255, blue: 84/255, alpha: 1)
         contentView.addSubview(recipeNameLabel)
         
         cookTimeLabel = UILabel()
         cookTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        cookTimeLabel.font = UIFont(name: "SFProText-Regular", size: 16)
+        cookTimeLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
         cookTimeLabel.textColor = .black
         contentView.addSubview(cookTimeLabel)
         
@@ -46,7 +48,7 @@ class RecipeCell: UITableViewCell {
         recipePhoto.clipsToBounds = true
         contentView.addSubview(recipePhoto)
         
-        unfavoritedView = UIImageView(image: #imageLiteral(resourceName: "emptyheart"))
+        unfavoritedView = UIImageView(image: #imageLiteral(resourceName: "emptystar"))
         unfavoritedView.translatesAutoresizingMaskIntoConstraints = false
         unfavoritedView.contentMode = .scaleAspectFit
         unfavoritedView.isHidden = false
@@ -55,7 +57,7 @@ class RecipeCell: UITableViewCell {
         unfavoritedView.addGestureRecognizer(tapGestureRecognizerUnfavorite)
         contentView.addSubview(unfavoritedView)
         
-        favoriteView = UIImageView(image: #imageLiteral(resourceName: "filledheart"))
+        favoriteView = UIImageView(image: #imageLiteral(resourceName: "filledstar"))
         favoriteView.translatesAutoresizingMaskIntoConstraints = false
         favoriteView.contentMode = .scaleAspectFit
         favoriteView.isHidden = true
@@ -81,18 +83,20 @@ class RecipeCell: UITableViewCell {
         NSLayoutConstraint.activate([
             recipePhoto.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             recipePhoto.heightAnchor.constraint(equalToConstant: recipeImageHeight),
-            recipePhoto.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            recipePhoto.topAnchor.constraint(equalTo: self.topAnchor),
             recipePhoto.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
             ])
         
         NSLayoutConstraint.activate([
             recipeNameLabel.leadingAnchor.constraint(equalTo: recipePhoto.leadingAnchor),
+            recipeNameLabel.topAnchor.constraint(equalTo: recipePhoto.bottomAnchor, constant: 10),
+            recipeNameLabel.trailingAnchor.constraint(equalTo: unfavoritedView.leadingAnchor, constant: -10),
             recipeNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             recipeNameLabel.heightAnchor.constraint(equalToConstant: recipeLabelHeight)
             ])
         
         NSLayoutConstraint.activate([
-            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: padding),
+            cookTimeLabel.topAnchor.constraint(equalTo: recipeNameLabel.bottomAnchor, constant: 10),
             cookTimeLabel.leadingAnchor.constraint(equalTo: recipeNameLabel.leadingAnchor),
             cookTimeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             ])
