@@ -168,7 +168,7 @@ class SearchResultsViewController: UIViewController {
                 print(rec.title)
             }
         }
-        let viewController = ProfileViewController(recipes: favoritedRecipes, user: self.currentUser)
+        let viewController = ProfileViewController(recipes: self.favoritedRecipes, user: self.currentUser)
         navigationController?.pushViewController(viewController, animated: true)
     }
     

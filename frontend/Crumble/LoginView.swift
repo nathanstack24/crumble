@@ -125,6 +125,7 @@ class LoginView: UIView {
         loginWithFacebookButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         loginWithFacebookButton.layer.cornerRadius = 8
         loginWithFacebookButton.addTarget(self, action: #selector(facebookLoginButtonPressed), for: .touchUpInside)
+        loginWithFacebookButton.isHidden = true
         self.addSubview(loginWithFacebookButton)
         
         // facebook logo
@@ -134,6 +135,7 @@ class LoginView: UIView {
         facebookLogoView.clipsToBounds = true
         facebookLogoView.layer.cornerRadius = 5
         facebookLogoView.contentMode = .scaleAspectFit
+        facebookLogoView.isHidden = true
         self.addSubview(facebookLogoView)
         
         // login with Google button
@@ -145,6 +147,7 @@ class LoginView: UIView {
         loginWithGoogleButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
         loginWithGoogleButton.layer.cornerRadius = 8
         loginWithGoogleButton.addTarget(self, action: #selector(googleLoginButtonPressed), for: .touchUpInside)
+        loginWithGoogleButton.isHidden = true
         self.addSubview(loginWithGoogleButton)
         
         // google logo
@@ -154,6 +157,7 @@ class LoginView: UIView {
         googleLogoView.clipsToBounds = true // image clipped to bounds of the receiver
         googleLogoView.layer.cornerRadius = 17.5
         googleLogoView.contentMode = .scaleAspectFit
+        googleLogoView.isHidden = true
         self.addSubview(googleLogoView)
         
         // login as guest
@@ -279,7 +283,7 @@ class LoginView: UIView {
         // login as guest button
         NSLayoutConstraint.activate([
             loginAsGuestButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            loginAsGuestButton.topAnchor.constraint(equalTo: loginWithGoogleButton.bottomAnchor, constant: 25),
+            loginAsGuestButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25),
             ])
     }
 }

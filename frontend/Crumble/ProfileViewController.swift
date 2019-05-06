@@ -16,11 +16,12 @@ class ProfileViewController: UIViewController {
     var tableView: UITableView!
     var refreshControl: UIRefreshControl!
     var favoriteRecipes: [Recipe]!
-    let reuseIdentifier = "recipeCellReuse"
+    let reuseIdentifier = "recipeCellReuseIdentifier"
     let cellHeight: CGFloat = 250
     let cellSpacingHeight: CGFloat = 20
     let padding: CGFloat = 8
     var user: User!
+    
     
     init(recipes: [Recipe], user: User) {
         self.favoriteRecipes = recipes
@@ -112,12 +113,12 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource {
         
         func numberOfSections(in tableView: UITableView) -> Int {
-            return self.favoriteRecipes.count
+            return 1
         }
         
         // There is just one row in every section
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
+            return self.favoriteRecipes.count
         }
         
         // Set the spacing between sections
