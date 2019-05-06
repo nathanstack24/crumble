@@ -19,11 +19,13 @@ class SearchViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var addedFilters: [Filter]! = []
     var allRecipes: [Recipe]! = []
+    var currentUser: User!
     
     let filterReuseIdentifier = "filterReuseIdentifier"
     
-    init(addedFilters: [Filter]) {
+    init(addedFilters: [Filter], currentUser: User) {
         self.addedFilters = addedFilters
+        self.currentUser = currentUser
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -172,7 +174,7 @@ class SearchViewController: UIViewController {
     }
     
     @objc func pushViewController() {
-        let viewController = SearchResultsViewController(addedFilters: addedFilters, allRecipes: allRecipes)
+        let viewController = SearchResultsViewController(addedFilters: addedFilters, allRecipes: allRecipes, currentUser: currentUser)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

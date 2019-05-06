@@ -26,7 +26,7 @@ class LoginViewController: UIViewController  {
     var loginView: LoginView!
     var signupView: SignupView!
     var currentView: UIView!
-    var currentUser: User!
+    var currentUser: User! = User(session_token: "abc", session_expiration: "abc", update_token: "abc")
 
     
     override func viewDidLoad() {
@@ -209,7 +209,9 @@ class LoginViewController: UIViewController  {
 extension LoginViewController: LoginViewDelegate {
     func validateData(email: String, password: String) {
         NetworkManager.postEmailAndPassword(email: email, password: password, completion: { (loginDetails) in
-            print(loginDetails)
+            self.currentUser = User(session_token: loginDetails.session_token, session_expiration: loginDetails.session_expiration, update_token: loginDetails.update_token)
+            let viewController = SearchViewController(addedFilters: [], currentUser: self.currentUser)
+            self.navigationController?.pushViewController(viewController, animated: true)
         }) { (errorMessage) in
             self.createAlert(title: errorMessage, message: "Please enter a valid email and password")
         }
@@ -219,7 +221,8 @@ extension LoginViewController: LoginViewDelegate {
 extension LoginViewController: SignUpViewDelegate {
     func signUpData(email: String, name: String, password: String) {
         NetworkManager.postNewUser(email: email, name: name, password: password, completion: { (loginDetails) in
-            let viewController = SearchViewController(addedFilters: [])
+            self.currentUser = User(session_token: loginDetails.session_token, session_expiration: loginDetails.session_expiration, update_token: loginDetails.update_token)
+            let viewController = SearchViewController(addedFilters: [], currentUser: self.currentUser)
             self.navigationController?.pushViewController(viewController, animated: true)
         }) { (errorMessage) in
             self.createAlert(title: errorMessage, message: "Please enter a valid email, name, and password")
@@ -231,7 +234,7 @@ extension LoginViewController: SignUpViewDelegate {
 
 extension LoginViewController: LoginAsGuestDelegate {
     func loginAsGuest() {
-        let viewController = SearchViewController(addedFilters: [])
+        let viewController = SearchViewController(addedFilters: [], currentUser: self.currentUser)
         navigationController?.pushViewController(viewController, animated: true)
     }
     

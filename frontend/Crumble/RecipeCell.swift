@@ -16,6 +16,8 @@ class RecipeCell: UITableViewCell {
     var recipePhoto: UIImageView!
     var favoriteView: UIImageView!
     var unfavoritedView: UIImageView!
+    var user: User!
+    var recipeID: Int!
     
 //    let padding: CGFloat = 20
 //    let labelHeight: CGFloat = 20
@@ -79,11 +81,13 @@ class RecipeCell: UITableViewCell {
     @objc func unfavoritedTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         unfavoritedView.isHidden = true
         favoriteView.isHidden = false
+        NetworkManager.postFavoritedRecipe(recipeID: recipeID, sessionToken: user.session_token)
     }
     
     @objc func favoriteTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         favoriteView.isHidden = true
         unfavoritedView.isHidden = false
+        NetworkManager.deleteFavoritedRecipe(recipeID: recipeID, sessionToken: user.session_token)
     }
     
     func setupConstraints() {

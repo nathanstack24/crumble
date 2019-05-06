@@ -26,9 +26,11 @@ class SearchResultsViewController: UIViewController {
     let filterHeight: CGFloat = 30
     let padding: CGFloat = 8
     let filterSpace: CGFloat = 20
+    var currentUser: User!
     
-    init(addedFilters: [Filter], allRecipes: [Recipe]) {
+    init(addedFilters: [Filter], allRecipes: [Recipe], currentUser: User) {
         self.addedFilters = addedFilters
+        self.currentUser = currentUser
         recipes = allRecipes
         super.init(nibName: nil, bundle: nil)
     }
@@ -96,22 +98,33 @@ class SearchResultsViewController: UIViewController {
     }
     
     func setupSelectedRecipes() {
-        
+        selectedRecipes = []
         for rec in recipes {
+            var match = true
             for fil in addedFilters {
                 let upperCaseFilter = fil.name.uppercased(with: .current)
+                var ingredMatch = false
                 for ingredient in rec.ingredients {
                     let upperCaseIngredient = ingredient.uppercased(with: .current)
                     if upperCaseIngredient.contains(upperCaseFilter) {
-                        if !selectedRecipes.contains(where: { (recipe) -> Bool in
-                            return recipe.title==rec.title
-                        }) {
-                            selectedRecipes.append(rec)
-                        }
+                        ingredMatch = true
                     }
                 }
-                
+                if !ingredMatch {
+                    match = false
+                }
             }
+            if !selectedRecipes.contains(where: { (recipe) -> Bool in
+                return recipe.id==rec.id
+            }) {
+                if (match) {
+                    selectedRecipes.append(rec)
+                }
+            }
+        }
+        
+        if (addedFilters.count == 0) {
+            selectedRecipes = self.recipes
         }
         self.collectionView.reloadData()
     }
@@ -144,9 +157,7 @@ class SearchResultsViewController: UIViewController {
     }
     
     @objc func pulledToRefresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.refreshControl.endRefreshing()
-        }
+        collectionView.reloadData()
     }
     
     @objc func pushProfileViewController() {
@@ -163,7 +174,7 @@ class SearchResultsViewController: UIViewController {
 extension SearchResultsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return selectedRecipes.count
+        return 1
     }
     
     // There is just one row in every section
@@ -191,7 +202,8 @@ extension SearchResultsViewController: UITableViewDataSource {
         cell.layer.shadowOffset = CGSize(width: 0, height: 4)
         cell.layer.shadowOpacity = 0.1
         cell.layer.shadowRadius = 5
-        
+        cell.user = currentUser
+        cell.recipeID = recipe.id
         return cell
     }
 
@@ -242,7 +254,6 @@ extension SearchResultsViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchResultsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("in function")
         return CGSize(width: 100.0, height: 50.0)
     }
     

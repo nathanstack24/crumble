@@ -9,6 +9,7 @@
 import Foundation
 
 struct Recipe : Codable {
+    var id: Int
     var title: String
     var author: String
     var source: String
@@ -51,6 +52,11 @@ struct LoginResponseData: Codable {
 struct LoginResponseDataFailure: Codable {
     var success: Bool
     var error: String
+}
+
+struct FavoritedInfo: Codable {
+    var success: Bool
+    var favorites: [Recipe]
 }
 
 

@@ -170,12 +170,10 @@ class LoginView: UIView {
     }
     
     @objc func loginButtonPressed () {
-        print("login button pressed")
         if let email = emailTextField.text, let password = passwordTextField.text {
             delegate?.validateData(email: email, password: password)
         }
         else {
-            print("in else statement")
         }
     }
     
