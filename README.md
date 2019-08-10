@@ -53,9 +53,4 @@ Search for recipes by filtering the results to match the ingredients you actuall
 
 
 ## Images
-![](Screenshots/SignUp.png = 250x250)
-![](Screenshots/SignInPage.png = 250x250)
-![](Screenshots/SearchPage.png = 250x250)
-![](Screenshots/SearchResult.png = 250x250)
-![](Screenshots/DetailRecipe.png = 250x250)
-![](Screenshots/DetailRecipe2.png = 250x250)
+<img src="Screenshots/SignUp.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SignInPage.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SearchPage.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SearchResult.png" alt="alt text" width="250" height="500"> <img src="Screenshots/DetailRecipe.png" alt="alt text" width="250" height="500"> <img src="Screenshots/DetailRecipe2.png" alt="alt text" width="250" height="500">
