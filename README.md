@@ -53,9 +53,9 @@ Search for recipes by filtering the results to match the ingredients you actuall
 
 
 ## Images
-![](Screenshots/SignUp.png)
-![](Screenshots/SignInPage.png)
-![](Screenshots/SearchPage.png)
-![](Screenshots/SearchResult.png)
-![](Screenshots/DetailRecipe.png)
-![](Screenshots/DetailRecipe2.png)
+![](Screenshots/SignUp.png = 250x250)
+![](Screenshots/SignInPage.png = 250x250)
+![](Screenshots/SearchPage.png = 250x250)
+![](Screenshots/SearchResult.png = 250x250)
+![](Screenshots/DetailRecipe.png = 250x250)
+![](Screenshots/DetailRecipe2.png = 250x250)
