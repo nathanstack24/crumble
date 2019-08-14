@@ -49,12 +49,8 @@ Search for recipes by filtering the results to match the ingredients you actuall
 - All backend code can be found in the _crumble/backend_ directory
 - A JSON of information for 100 recipes was scraped from allrecipes.com and used to create the database's recipes. The python script used to scrape the recipes is _step1.py_ and can be found in the _crumble_ directory
 - Additional iOS features to the ones listed above were implemented (including SearchController and UIScrollView)
+- Implementation of favoriting recipes on the front end is not completely finished. You can favorite and unfavorite a recipe in a given session and it will correctly update the database. However, you cannot view your favorites. Also, while a recipe will remain favorited in the database between sessions, the UI will not remember to keep the 'star' associated with that recipe filled in between sessions to indicate it is still favorited.
 
 
 ## Images
-![](Screenshots/SignUp.png)
-![](Screenshots/SignIn.png)
-![](Screenshots/SearchPage.png)
-![](Screenshots/SearchResult.png)
-![](Screenshots/DetailRecipe.png)
-![](Screenshots/DetailRecipe2.png)
+<img src="Screenshots/SignUp.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SignInPage.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SearchPage.png" alt="alt text" width="250" height="500"> <img src="Screenshots/SearchResult.png" alt="alt text" width="250" height="500"> <img src="Screenshots/DetailRecipe.png" alt="alt text" width="250" height="500"> <img src="Screenshots/DetailRecipe2.png" alt="alt text" width="250" height="500">
