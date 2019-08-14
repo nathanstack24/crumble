@@ -3,7 +3,7 @@
 //  Crumble
 //
 //  Created by Beth Mieczkowski on 4/21/19.
-//  Copyright © 2019 Beth Mieczkowski. All rights reserved.
+//  Copyright © 2019 Nathan Stack. All rights reserved.
 //
 import UIKit
 
@@ -18,7 +18,7 @@ class SearchResultsViewController: UIViewController {
     var selectedRecipes: [Recipe]! = []
     var profileBtn: UIButton!
     
-    let reuseIdentifier = "recipeCellReuse"
+    let cellReuseIdentifier = "recipeCellReuseIdentifier"
     let filterReuseIdentifier = "filterReuseIdentifier"
     let cellHeight: CGFloat = 250
     let cellSpacingHeight: CGFloat = 100
@@ -66,7 +66,7 @@ class SearchResultsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none //hide the horizontal lines
-        tableView.register(RecipeCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(RecipeCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         view.addSubview(tableView)
         
         filterLabel = UILabel()
@@ -196,7 +196,7 @@ extension SearchResultsViewController: UITableViewDataSource {
     
     /// Tell the table view what cell to display for each row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! RecipeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! RecipeCell
         let recipe = selectedRecipes[indexPath.row]
         cell.configure(for: recipe)
         cell.selectionStyle = .none

@@ -3,7 +3,7 @@
 //  Crumble
 //
 //  Created by Nathan Stack on 5/5/19.
-//  Copyright © 2019 Beth Mieczkowski. All rights reserved.
+//  Copyright © 2019 Nathan Stack. All rights reserved.
 //
 
 import UIKit
@@ -11,22 +11,23 @@ import SnapKit
 
 protocol LoginViewDelegate: class  {
     func validateData(email: String, password: String)
-}
-
-protocol LoginAsGuestDelegate: class {
     func loginAsGuest()
+    func loginWithGoogle()
+    func loginWithFacebook()
+    func forgotPassword()
 }
 
 class LoginView: UIView {
-    
+
     var emailTextField : UITextField!
     var emailLabel : UILabel!
-    var lineView1: UIView!
+    var emailLineView: UIView!
+    
     var passwordLabel: UILabel!
     var passwordTextField: UITextField!
-    var lineView2: UIView!
+    var passwordLineView: UIView!
+    
     var forgotPasswordButton: UIButton!
-    var view: UIView!
     var loginButton: UIButton!
     var loginWithFacebookButton: UIButton!
     var facebookLogoView: UIImageView!
@@ -34,25 +35,22 @@ class LoginView: UIView {
     var googleLogoView: UIImageView!
     var loginAsGuestButton: UIButton!
     weak var delegate: LoginViewDelegate?
-    weak var guestDelegate: LoginAsGuestDelegate?
     
-    var buffer: CGFloat!
-    var distFromTop: CGFloat!
-    var buttonHeight: CGFloat!
+    let buffer: CGFloat = 50
+    let distFromTop: CGFloat = 15
+    let buttonHeight: CGFloat = 50
+    let lineViewHeight: CGFloat = 2
     
-    init(brownColor: UIColor, grayColor: UIColor, orangeColor: UIColor) {
+    init() {
         super.init(frame: .zero)
         self.backgroundColor = brownColor
         self.translatesAutoresizingMaskIntoConstraints = false
-        buffer = 50
-        distFromTop = 15
-        buttonHeight = 50
         
         // label for email
         emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.text = "Email"
-        emailLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
+        emailLabel.font = getDefaultAppFont(ofSize: 16)
         emailLabel.textColor = orangeColor
         self.addSubview(emailLabel)
         
@@ -66,16 +64,16 @@ class LoginView: UIView {
         self.addSubview(emailTextField)
         
         // email line
-        lineView1 = UIView()
-        lineView1.translatesAutoresizingMaskIntoConstraints = false
-        lineView1.backgroundColor = orangeColor
-        self.addSubview(lineView1)
+        emailLineView = UIView()
+        emailLineView.translatesAutoresizingMaskIntoConstraints = false
+        emailLineView.backgroundColor = orangeColor
+        self.addSubview(emailLineView)
         
         // label for password
         passwordLabel = UILabel()
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.text = "Password"
-        passwordLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
+        passwordLabel.font = getDefaultAppFont(ofSize: 16)
         passwordLabel.textColor = orangeColor
         self.addSubview(passwordLabel)
         
@@ -90,17 +88,17 @@ class LoginView: UIView {
         self.addSubview(passwordTextField)
         
         // password line
-        lineView2 = UIView()
-        lineView2.translatesAutoresizingMaskIntoConstraints = false
-        lineView2.backgroundColor = orangeColor
-        self.addSubview(lineView2)
+        passwordLineView = UIView()
+        passwordLineView.translatesAutoresizingMaskIntoConstraints = false
+        passwordLineView.backgroundColor = orangeColor
+        self.addSubview(passwordLineView)
         
         // forgot password button
         forgotPasswordButton = UIButton()
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         forgotPasswordButton.setAttributedTitle(NSAttributedString(string: "Forgot Password?", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : grayColor]), for: .normal)
-        forgotPasswordButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 16)
+        forgotPasswordButton.titleLabel?.font = getDefaultAppFont(ofSize: 16)
         forgotPasswordButton.setTitleColor(grayColor, for: .normal)
         forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
         self.addSubview(forgotPasswordButton)
@@ -111,7 +109,7 @@ class LoginView: UIView {
         loginButton.setTitle("Login", for: .normal)
         loginButton.backgroundColor = grayColor
         loginButton.setTitleColor(brownColor, for: .normal)
-        loginButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        loginButton.titleLabel?.font = getDefaultAppFont(ofSize: 18)
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         loginButton.layer.cornerRadius = 8
         self.addSubview(loginButton)
@@ -122,7 +120,7 @@ class LoginView: UIView {
         loginWithFacebookButton.setTitle("Login with Facebook", for: .normal)
         loginWithFacebookButton.setTitleColor(brownColor, for: .normal)
         loginWithFacebookButton.backgroundColor = grayColor
-        loginWithFacebookButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        loginWithFacebookButton.titleLabel?.font = getDefaultAppFont(ofSize: 18)
         loginWithFacebookButton.layer.cornerRadius = 8
         loginWithFacebookButton.addTarget(self, action: #selector(facebookLoginButtonPressed), for: .touchUpInside)
         loginWithFacebookButton.isHidden = true
@@ -144,7 +142,7 @@ class LoginView: UIView {
         loginWithGoogleButton.setTitle("Login with Google", for: .normal)
         loginWithGoogleButton.setTitleColor(brownColor, for: .normal)
         loginWithGoogleButton.backgroundColor = grayColor
-        loginWithGoogleButton.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        loginWithGoogleButton.titleLabel?.font = getDefaultAppFont(ofSize: 18)
         loginWithGoogleButton.layer.cornerRadius = 8
         loginWithGoogleButton.addTarget(self, action: #selector(googleLoginButtonPressed), for: .touchUpInside)
         loginWithGoogleButton.isHidden = true
@@ -153,7 +151,7 @@ class LoginView: UIView {
         // google logo
         googleLogoView = UIImageView()
         googleLogoView.translatesAutoresizingMaskIntoConstraints = false
-        googleLogoView.image = UIImage(named: "googleLogo")
+        googleLogoView.image = googleLogo
         googleLogoView.clipsToBounds = true // image clipped to bounds of the receiver
         googleLogoView.layer.cornerRadius = 17.5
         googleLogoView.contentMode = .scaleAspectFit
@@ -165,7 +163,7 @@ class LoginView: UIView {
         loginAsGuestButton.translatesAutoresizingMaskIntoConstraints = false
         loginAsGuestButton.setAttributedTitle(NSAttributedString(string: "Login as Guest", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : grayColor]), for: .normal)
-        loginAsGuestButton.titleLabel?.font = UIFont(name: "Montserrat-Light", size: 16)
+        loginAsGuestButton.titleLabel?.font = getDefaultAppFont(ofSize: 16)
         loginAsGuestButton.setTitleColor(grayColor, for: .normal)
         loginAsGuestButton.addTarget(self, action: #selector(loginAsGuestButtonPressed), for: .touchUpInside)
         self.addSubview(loginAsGuestButton)
@@ -182,19 +180,19 @@ class LoginView: UIView {
     }
     
     @objc func forgotPasswordButtonPressed () {
-        guestDelegate?.loginAsGuest()
+        delegate?.forgotPassword()
     }
     
     @objc func facebookLoginButtonPressed () {
-        guestDelegate?.loginAsGuest()
+        delegate?.loginWithFacebook()
     }
     
     @objc func googleLoginButtonPressed () {
-        guestDelegate?.loginAsGuest()
+        delegate?.loginWithGoogle()
     }
     
     @objc func loginAsGuestButtonPressed () {
-        guestDelegate?.loginAsGuest()
+        delegate?.loginAsGuest()
     }
     
     
@@ -203,28 +201,28 @@ class LoginView: UIView {
     }
     
     func setupConstraints() {
-        // constraints for username label
+        // constraints for email label
         NSLayoutConstraint.activate([
             emailLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
             emailLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: self.distFromTop)
             ])
-        // constraints for username text field
+        // constraints for email text field
         NSLayoutConstraint.activate([
             emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
             emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
             emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 5)
             ])
-        // constraints for username line
+        // constraints for email line
         NSLayoutConstraint.activate([
-            lineView1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            lineView1.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
-            lineView1.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 15),
-            lineView1.heightAnchor.constraint(equalToConstant: 2)
+            emailLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
+            emailLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
+            emailLineView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 15),
+            emailLineView.heightAnchor.constraint(equalToConstant: lineViewHeight)
             ])
         // constraints for password label
         NSLayoutConstraint.activate([
             passwordLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            passwordLabel.topAnchor.constraint(equalTo: lineView1.bottomAnchor, constant: 20)
+            passwordLabel.topAnchor.constraint(equalTo: emailLineView.bottomAnchor, constant: 20)
             ])
         // constraints for password text field
         NSLayoutConstraint.activate([
@@ -234,15 +232,15 @@ class LoginView: UIView {
             ])
         // constraints for password line
         NSLayoutConstraint.activate([
-            lineView2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
-            lineView2.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
-            lineView2.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 15),
-            lineView2.heightAnchor.constraint(equalToConstant: 2)
+            passwordLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.buffer),
+            passwordLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: (-self.buffer)),
+            passwordLineView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 15),
+            passwordLineView.heightAnchor.constraint(equalToConstant: 2)
             ])
         // forgot password button
         NSLayoutConstraint.activate([
             forgotPasswordButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            forgotPasswordButton.topAnchor.constraint(equalTo: lineView2.bottomAnchor, constant: 15)
+            forgotPasswordButton.topAnchor.constraint(equalTo: passwordLineView.bottomAnchor, constant: 15)
             ])
         // login button
         NSLayoutConstraint.activate([

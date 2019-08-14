@@ -38,7 +38,7 @@ class RecipeCell: UITableViewCell {
         
         recipeNameLabel = UILabel()
         recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        recipeNameLabel.font = UIFont(name: "Montserrat-Bold", size: 18)
+        recipeNameLabel.font = getDefaultAppFont(ofSize: 16)
         recipeNameLabel.clipsToBounds = true
         recipeNameLabel.lineBreakMode = .byWordWrapping
         recipeNameLabel.numberOfLines = 0

@@ -3,13 +3,16 @@
 //  Crumble
 //
 //  Created by Nathan Stack on 5/5/19.
-//  Copyright © 2019 Beth Mieczkowski. All rights reserved.
+//  Copyright © 2019 Nathan Stack. All rights reserved.
 //
 
 import UIKit
 
 protocol SignUpViewDelegate: class  {
     func signUpData(email: String, name: String, password: String)
+    func loginAsGuest()
+    func signUpWithGoogle()
+    func signUpWithFacebook()
 }
 
 class SignupView: UIView {
@@ -26,25 +29,21 @@ class SignupView: UIView {
     var createAccountButton: UIButton!
     var loginAsGuestButton: UIButton!
     weak var delegate: SignUpViewDelegate?
-    weak var guestDelegate: LoginAsGuestDelegate?
     
-    var buffer: CGFloat!
-    var distFromTop: CGFloat!
-    var buttonHeight: CGFloat!
+    let buffer: CGFloat = 50
+    let distFromTop: CGFloat = 15
+    let buttonHeight: CGFloat = 60
     
-    init(brownColor: UIColor, grayColor: UIColor, orangeColor: UIColor) {
+    init() {
         super.init(frame: .zero)
         self.backgroundColor = brownColor
         self.translatesAutoresizingMaskIntoConstraints = false
-        buffer = 50
-        distFromTop = 15
-        buttonHeight = 60
         
         // label for email
         emailLabel = UILabel()
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.text = "Email"
-        emailLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
+        emailLabel.font = getDefaultAppFont(ofSize: 16)
         emailLabel.textColor = orangeColor
         self.addSubview(emailLabel)
         
@@ -67,7 +66,7 @@ class SignupView: UIView {
         usernameLabel = UILabel()
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.text = "Name"
-        usernameLabel.font = UIFont(name: "Montserrat-Regular", size: 16)
+        usernameLabel.font = getDefaultAppFont(ofSize: 16)
         usernameLabel.textColor = orangeColor
         self.addSubview(usernameLabel)
         
@@ -147,7 +146,7 @@ class SignupView: UIView {
     }
     
     @objc func loginAsGuestButtonPressed () {
-        guestDelegate?.loginAsGuest()
+        delegate?.loginAsGuest()
     }
     
     

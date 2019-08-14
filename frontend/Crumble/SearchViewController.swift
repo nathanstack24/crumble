@@ -3,7 +3,7 @@
 //  Crumble
 //
 //  Created by Beth Mieczkowski on 4/23/19.
-//  Copyright © 2019 Beth Mieczkowski. All rights reserved.
+//  Copyright © 2019 Nathan Stack. All rights reserved.
 //
 
 import UIKit
@@ -86,7 +86,7 @@ class SearchViewController: UIViewController {
         addButton = UIButton()
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.setTitle("+ Add", for: .normal)
-        addButton.titleLabel!.font = UIFont(name: "Montserrat-Bold", size: 18)
+        addButton.titleLabel!.font = getDefaultAppFont(ofSize: 16)
         addButton.setTitleColor(.black, for: .normal)
         addButton.backgroundColor = .white
         addButton.layer.borderWidth = 3

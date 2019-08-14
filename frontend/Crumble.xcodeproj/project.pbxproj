@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F4D7AA1CD8B34C8137CBB7C /* Pods_Crumble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */; };
+		C232E8B32302392900B3CF3B /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E8B22302392900B3CF3B /* ThemeManager.swift */; };
 		C23AA22422734E6A0014CBD3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23AA22322734E6A0014CBD3 /* LoginViewController.swift */; };
 		C2507139227F90C70041B76C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2507138227F90C70041B76C /* User.swift */; };
 		C250713D227FE2F30041B76C /* AddedFiltersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C250713C227FE2F30041B76C /* AddedFiltersCollectionViewCell.swift */; };
@@ -18,7 +19,6 @@
 		C29BB7D1227EE5A40052EEEB /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29BB7D0227EE5A40052EEEB /* SignupView.swift */; };
 		D3F9E0AE226D4566006B1242 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0AD226D4566006B1242 /* AppDelegate.swift */; };
 		D3F9E0B0226D4566006B1242 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */; };
-		D3F9E0B3226D4566006B1242 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B1226D4566006B1242 /* Main.storyboard */; };
 		D3F9E0B5226D4568006B1242 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B4226D4568006B1242 /* Assets.xcassets */; };
 		D3F9E0B8226D4569006B1242 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */; };
 		D3F9E0C4226D46CF006B1242 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9E0C3226D46CF006B1242 /* RecipeCell.swift */; };
@@ -39,6 +39,7 @@
 /* Begin PBXFileReference section */
 		4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Crumble.release.xcconfig"; path = "Target Support Files/Pods-Crumble/Pods-Crumble.release.xcconfig"; sourceTree = "<group>"; };
 		732B9F43E9B763E5ED2A2C3F /* Pods_Crumble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Crumble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C232E8B22302392900B3CF3B /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		C23AA22322734E6A0014CBD3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C2507138227F90C70041B76C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C250713C227FE2F30041B76C /* AddedFiltersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedFiltersCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		D3F9E0AA226D4566006B1242 /* Crumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F9E0AD226D4566006B1242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
-		D3F9E0B2226D4566006B1242 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3F9E0B4226D4568006B1242 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3F9E0B7226D4569006B1242 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3F9E0B9226D4569006B1242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,7 +123,6 @@
 				D3F9E0AD226D4566006B1242 /* AppDelegate.swift */,
 				D3F9E0AF226D4566006B1242 /* SearchResultsViewController.swift */,
 				C250713C227FE2F30041B76C /* AddedFiltersCollectionViewCell.swift */,
-				D3F9E0B1226D4566006B1242 /* Main.storyboard */,
 				D3F9E0B4226D4568006B1242 /* Assets.xcassets */,
 				D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */,
 				D3F9E0B9226D4569006B1242 /* Info.plist */,
@@ -137,6 +136,7 @@
 				D3F9E0C9226D5FEC006B1242 /* Filter.swift */,
 				D3F9E0CB226F6F54006B1242 /* ProfileViewController.swift */,
 				C23AA22322734E6A0014CBD3 /* LoginViewController.swift */,
+				C232E8B22302392900B3CF3B /* ThemeManager.swift */,
 				C29BB7CE227EA7990052EEEB /* LoginView.swift */,
 				C29BB7D0227EE5A40052EEEB /* SignupView.swift */,
 				D3F9E0CD226F6FCD006B1242 /* SearchViewController.swift */,
@@ -189,10 +189,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = "Beth Mieczkowski";
+				ORGANIZATIONNAME = "Nathan Stack";
 				TargetAttributes = {
 					D3F9E0A9226D4566006B1242 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -221,7 +222,6 @@
 			files = (
 				D3F9E0B8226D4569006B1242 /* LaunchScreen.storyboard in Resources */,
 				D3F9E0B5226D4568006B1242 /* Assets.xcassets in Resources */,
-				D3F9E0B3226D4566006B1242 /* Main.storyboard in Resources */,
 				D8BD708A227F9F07001729E0 /* Montserrat-SemiBold.otf in Resources */,
 				D8BD7085227F904E001729E0 /* Montserrat-Regular.otf in Resources */,
 				D8BD708E227FAEDD001729E0 /* PlayfairDisplay-Regular.otf in Resources */,
@@ -298,6 +298,7 @@
 				C29BB7C3227E83EB0052EEEB /* RecipeOld.swift in Sources */,
 				C29BB7C1227E6AAF0052EEEB /* Network.swift in Sources */,
 				C2507139227F90C70041B76C /* User.swift in Sources */,
+				C232E8B32302392900B3CF3B /* ThemeManager.swift in Sources */,
 				D3F9E0C4226D46CF006B1242 /* RecipeCell.swift in Sources */,
 				D3F9E0C8226D5F87006B1242 /* FilterCollectionViewCell.swift in Sources */,
 				D3F9E0CC226F6F54006B1242 /* ProfileViewController.swift in Sources */,
@@ -310,14 +311,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D3F9E0B1226D4566006B1242 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D3F9E0B2226D4566006B1242 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D3F9E0B6226D4569006B1242 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -450,16 +443,18 @@
 			baseConfigurationReference = E0CF27C68525845630A605EB /* Pods-Crumble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3FK25B4PAC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Crumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bethmieczkowski.Crumble;
+				PRODUCT_BUNDLE_IDENTIFIER = nathanstack.Crumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -469,16 +464,18 @@
 			baseConfigurationReference = 4EA93B3A849361A40590B1B3 /* Pods-Crumble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3FK25B4PAC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Crumble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bethmieczkowski.Crumble;
+				PRODUCT_BUNDLE_IDENTIFIER = nathanstack.Crumble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
