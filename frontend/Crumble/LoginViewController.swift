@@ -25,9 +25,7 @@ class LoginViewController: UIViewController  {
     var currentView: UIView!
     var currentUser: User!
     
-    let crumbleLogoViewIndent = 70
-    let crumbleLogoViewHeight = 25
-    let crumbleLogoToButtonOffset = 20
+    let crumbleLogoViewHeight = 165
     
     let defaultOffset = 8
 
@@ -126,8 +124,9 @@ class LoginViewController: UIViewController  {
     func setupConstraints() {
         // Setup constraints for image view
         crumbleLogoView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(crumbleLogoViewIndent)
-            make.trailing.equalToSuperview().offset(-crumbleLogoViewIndent)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            make.leading.equalToSuperview().offset(70)
+            make.trailing.equalToSuperview().offset(-70)
             make.height.equalTo(crumbleLogoViewHeight)
         }
         
@@ -135,14 +134,14 @@ class LoginViewController: UIViewController  {
         signInButton.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.trailing.equalTo(view.snp.centerX)
-            make.top.equalTo(crumbleLogoView.snp.top).offset(crumbleLogoToButtonOffset)
+            make.top.equalTo(crumbleLogoView.snp.bottom).offset(20)
         }
        
         // Setup constraints for sign up button
         signUpButton.snp.makeConstraints { (make) in
             make.leading.equalTo(view.snp.centerX)
             make.trailing.equalToSuperview()
-            make.top.equalTo(crumbleLogoView.snp.top).offset(crumbleLogoToButtonOffset)
+            make.top.equalTo(crumbleLogoView.snp.bottom).offset(20)
         }
         
         // setup constraints for slider bar
@@ -150,13 +149,14 @@ class LoginViewController: UIViewController  {
             make.leading.equalToSuperview()
             make.width.equalTo(view.snp.width).dividedBy(2)
             make.height.equalTo(lineViewHeight).multipliedBy(2)
+            make.bottom.equalTo(signInButton.snp.bottom).offset(5)
         }
     
         // setup constraints for horizontal line
         lineView.snp.makeConstraints { (make) in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(sliderView.snp.bottom)
-            make.height.equalTo(1)
+            make.height.equalTo(lineViewHeight)
         }
     
         // setup login view constraints
@@ -171,8 +171,6 @@ class LoginViewController: UIViewController  {
             make.top.equalTo(lineView.snp.top).offset(defaultOffset)
         }
     }
-    
-    
 }
 
 extension LoginViewController: LoginViewDelegate {
